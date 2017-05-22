@@ -52,13 +52,48 @@ do grep -nr '_2$' $i > $i.lines
 done
 
 head -n 1 *lines
+
+for i in *lines; do cat $i | cut -f1 -d":" > $i.linenr; done
+
+##to rename multiple files in bash
+for i in *.lines.firstline..linenr ; do mv "$i" "${i/lines.firstline..linenr/linenr}"; done 
+
+###I did this as an intermediate step before
+for i in *lines ; do cat $i | awk '{print $1;exit}' > $i.firstline; done
+rm *lines
 ```
 
-And then split the data into two files
+And then split the data into two files according to the first line that we just calculated. I had to do this manually
+```
+cat PHE116.fq.linenr
+480705
+
+awk 'NR < 480705 { print >> "PHE116.R1.fq"; next } {print >> "PHE116.R2.fq" }' PHE116.fq
 ```
 
+Reverse complement the Reverse files so that the invariant RE overhang is at the end of the sequence
+```
+/usr/local/ngseq/bin/fastx_reverse_complement -z -v -i[input] -o[output]
+
+for i in *R2.fq; do /usr/local/ngseq/bin/fastx_reverse_complement -v -i $i -o $i.rev.fq; done
 ```
 
+Deren Eaton suggests that sequences should be merged if they are overlapping, otherwise it will cause problems with the de novo assembly. 
+I'm checking this as suggested in his tutorial: 
+
+http://nbviewer.jupyter.org/gist/dereneaton/dc6241083c912519064e/tutorial_pairddRAD_3.0.4-merged.ipynb
+
+First I need to install PEAR on my laptop (in Applications)
+
+```
+1. git clone https://github.com/xflouris/PEAR.git
+2. cd PEAR
+3. ./autogen.sh
+4. ./configure
+5. make
+6. sudo make install
+
+```
 
 ##pyRAD
 
