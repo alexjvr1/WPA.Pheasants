@@ -19,6 +19,12 @@ Firstly to improve the SNP calling for the dataset by testing pyRAD.
 
 Paired-End ddRAD data sequenced on MiSeq. 
 
+Restriction enzymes: 
+
+SbfI (8bp recognition sites) TGCAGG-3'
+ 
+SphI (7bp recognition site) CATGC-3'
+
 39 individuals in total (40 samples). 
 
 4 Species. 
