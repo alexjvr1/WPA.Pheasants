@@ -24,6 +24,35 @@ Paired-End ddRAD data sequenced on MiSeq.
 4 Species. 
 
 
+I first need to split the file into fwd and reverse reads. 
+Then I need to check for Illumina adapters
+Then I need to reverse complement read2 and concatenate to the first read. (I think this has already been done)
+
+Since I have paired-end reads I can also look for PCR duplicates which I couldn't do with any of my other data so far. 
+
+  - Interesting test: How much PCR duplication in this dataset? 
+  - Can we compare between species/data quality/Illumina lanes. 
+
+The data we got wasn't raw data. They are single .fq files per individual, with _1 and _2 reads (not interleaved). I think the reverse reads have already been reverse complemented here, but I'm not sure. 
+
+Side note: All 8 query individuals have the lines annotated /1 and /2 for fwd and rev. (PHE126, 127, 133-138). 
+
+First I'll need to split the file into fwd and reverse reads. 
+
+Check at which line the reverse reads start (this is for all reference individuals). 
+```
+for i in *.fq
+do grep -nr '_2$' $i > $i.lines
+done
+
+head -n 1 *lines
+```
+
+And then split the data into two files
+```
+
+```
+
 
 ##pyRAD
 
