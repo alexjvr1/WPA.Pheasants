@@ -43,9 +43,11 @@ The data we got wasn't raw data. They are single .fq files per individual, with 
 
 Side note: All 8 query individuals have the lines annotated /1 and /2 for fwd and rev. (PHE126, 127, 133-138). 
 
-First I'll need to split the file into fwd and reverse reads. 
+First I'll need to split the file into fwd and reverse reads. The data from Gill contains the concatenated data. It looks like it's R1 + R2 + R1.rem + R2.rem. (where .rem are the non paired reads). 
 
-Check at which line the reverse reads start (this is for all reference individuals). 
+This is to split the data into 4 files: 
+
+1. Check at which line the reverse reads start (this is for all reference individuals). 
 ```
 for i in *.fq
 do grep -nr '_2$' $i > $i.lines
@@ -63,13 +65,53 @@ for i in *lines ; do cat $i | awk '{print $1;exit}' > $i.firstline; done
 rm *lines
 ```
 
-And then split the data into two files according to the first line that we just calculated. I had to do this manually
+2. Split the data into two files according to the first line that we just calculated. I had to do this manually. This produces a .R1.fq file, ready for use, and a R2.fq file which still contains the .rem sequences and will be split further after this step. 
 ```
 cat PHE116.fq.linenr
 480705
 
-awk 'NR < 480705 { print >> "PHE116.R1.fq"; next } {print >> "PHE116.R2.fq" }' PHE116.fq
+awk 'NR < 480705 { print >> "PHE116.R1.fq"; next } {print >> "PHE116.merged.fq" }' PHE116.fq
 ```
+
+3. Check at which line the R1.rem reads start. (For most of these, because they're paired, the line numbers should be the same as found in Step 1)
+```
+for i in *merged.fq
+do grep -nr '_1$' $i > $i.lines
+done
+
+head -n 1 *merged.fq.lines
+
+for i in *merged.lines; do cat $i | cut -f1 -d":" > $i.linenr; done
+```
+
+4. Split the data into R1.rem and R2. This has to be done manually
+```
+cat PHE116.fq.R2.linenr
+480705
+
+awk 'NR < 480705 { print >> "PHE116.R2.fq"; next } {print >> "PHE116.merged.2.fq" }' PHE116.fq
+```
+
+5. Repeat the process to split R1.rem into R1.rem and R2.rem
+
+```
+for i in *merged.2.fq
+do grep -nr '_2$' $i > $i.lines
+done
+
+head -n 1 *merged.2.fq.lines
+
+for i in *merged.2.fq.lines; do cat $i | cut -f1 -d":" > $i.linenr; done
+```
+
+And split the data
+```
+cat PHE116.fq.merged.2.linenr
+480705
+
+awk 'NR < 480705 { print >> "PHE116.R1.rem.fq"; next } {print >> "PHE116.R2.rem.fq" }' PHE116.merged.2.fq
+```
+
 
 Reverse complement the Reverse files so that the invariant RE overhang is at the end of the sequence
 ```
