@@ -44,9 +44,87 @@ The data we got wasn't raw data. They are single .fq files per individual, with 
 Side note: All 8 query individuals have the lines annotated /1 and /2 for fwd and rev. (PHE126, 127, 133-138). 
 
 First I'll need to split the file into fwd and reverse reads. The data from Gill contains the concatenated data. It looks like it's R1 + R2 + R1.rem + R2.rem. (where .rem are the non paired reads). 
+After looking at the file further, I realised that they've run the file through one of the Stacks pre-processing pipelines, so all the reads are in one folder. Also, after splitting the reads (see below) I found now .rem sequences, so this has already been cleaned up. Is this done by stacks??
+
 
 This is to split the data into 4 files: 
 
+>pwd
+/Users/alexjvr/2016RADAnalysis/WPA/rawdata.WPA/others
+
+1. first run through all the files and split all reads with _1 or _2 into different files
+```
+#-A takes 3 lines after first line, and -B takes lines before. 
+
+for f in $(ls *fq); do grep '_1$' -A3 $f > $f._1; done 
+for f in $(ls *fq); do grep '_2$' -A3 $f > $f._2; done
+```
+
+And split the query individuals (see side note above): 
+
+Use sed to replace /1 and /2 with _1 and _2. Cool trick: sed can read any symbol as the separator in the command. So replacing / command doesn't become unreadable. The / has to be escaped with \
+
+I'm currently stuck on how to condition sed so that it only substitutes on the lines starting with "^@1_" because / is a PHRED symbol, so these appear in the quality scores. 
+
+```
+cat PHE126.fq | sed 's;/1$;\_1;g' > PHE126.fq.2
+
+for f in $(ls PHE13*); do cat $f | sed 's;/1$;\_1;g' > $f.2; done
+for f in $(ls PHE12*); do cat $f | sed 's;/1$;\_1;g' > $f.2; done
+
+## and replace /2 in these 
+for f in $(ls *.2.3); do cat $f | sed 's;/2$;\_1;g' > $f.3; done
+
+rename
+for i in *.2.3.3; do mv "$i" "${i/.fq._1/_1.fq}" ; done
+```
+
+The next steps are all manipulating the files so that I can compare the fwd and rev reads and identify any .rem reads
+
+2. rename these files
+```
+for i in *.fq._1; do mv "$i" "${i/.fq._1/_1.fq}" ; done
+for i in *.fq._2; do mv "$i" "${i/.fq._2/_2.fq}" ; done
+```
+
+
+3. get all the names for these sequences into .names files
+
+```
+for f in $(ls *_1.fq); do grep "_1$" $f > $f.names; done
+for f in $(ls *_2.fq); do grep “_2$" $f > $f.names; done
+
+```
+
+
+4. substitute the _1 and _2 so that the names are exactly the same.
+```
+for f in $(ls *_1.fq.names); do cat $f | sed ’s/_1$/e/' > $f.1; done
+for f in $(ls *_2.fq.names); do cat $f | sed 's/_2$/e/' > $f.1; done
+```
+
+5. Compare the files
+
+The number of lines in fwd and rev for one individual was the same for my spot check of ~5 indivs. This makes me suspicious that there are no .rem sequences
+```
+cat PHE127_1.fq.names.1 | wc -l
+403219
+
+cat PHE127_2.fq.names.1 | wc -l
+403219
+```
+
+directly compare the files
+```
+diff PHE138_1.fq.names.1 PHE138_2.fq.names.1
+```
+
+I found no .rem files. 
+
+Now I have 2 files per individual: fwd and reverse. 
+
+#########################################
+####### Method that didn't work  ########
 1. Check at which line the reverse reads start (this is for all reference individuals). 
 ```
 for i in *.fq
@@ -111,6 +189,10 @@ cat PHE116.fq.merged.2.linenr
 
 awk 'NR < 480705 { print >> "PHE116.R1.rem.fq"; next } {print >> "PHE116.R2.rem.fq" }' PHE116.merged.2.fq
 ```
+#############################################
+#############################################
+
+
 
 
 Reverse complement the Reverse files so that the invariant RE overhang is at the end of the sequence
@@ -137,10 +219,13 @@ First I need to install PEAR on my laptop (in Applications)
 
 ```
 
+
+
+
 ##pyRAD
 
-I'll test pyrad clustering using individuals from all the 4 species of Pheasant in the test runs. I'm using the samples specified as reference
-individuals in the first report. 
+I'll test pyrad clustering using individuals from all the 4 species of Pheasant in the test runs. I'm using the samples specified as
+reference individuals in the first report. 
 
 I'll test clustering thresholds of 85-95% to start with. 
 
