@@ -15,7 +15,7 @@ Firstly to improve the SNP calling for the dataset by testing pyRAD.
   - Relatedness
   
 
-##Data
+## Data
 
 Paired-End ddRAD data sequenced on MiSeq. 
 
@@ -41,6 +41,21 @@ Since I have paired-end reads I can also look for PCR duplicates which I couldn'
 
 The data we got wasn't raw data. They are single .fq files per individual, with _1 and _2 reads (not interleaved). I think the reverse reads have already been reverse complemented here, but I'm not sure. 
 
+```
+Info from Gill Murray-Dickson about the process-radtags script: 
+
+process_radtags -E phred33 --filter_illumina -s 20 -i fastq -y fastq -1 XXXX_R1_001.fastq -2 XXXX_R2_001.fastq -o samples1/ -e sbfI --renz_2 sphI -t 135 -c -q --inline_inline -b XXX_barcodes.txt
+
+I've figured out that: 
+
+Reverse reads have been reverse complemented
+
+Restriction enzyme sites are still included in R1 and R2 sequences
+
+the -c option above cleans the data by removing any reads with uncalled bases. This is potentially a problem - I think it will remove
+too much of the data!
+```
+
 Side note: All 8 query individuals have the lines annotated /1 and /2 for fwd and rev. (PHE126, 127, 133-138). 
 
 First I'll need to split the file into fwd and reverse reads. The data from Gill contains the concatenated data. It looks like it's R1 + R2 + R1.rem + R2.rem. (where .rem are the non paired reads). 
@@ -64,27 +79,32 @@ And split the query individuals (see side note above):
 
 Use sed to replace /1 and /2 with _1 and _2. Cool trick: sed can read any symbol as the separator in the command. So replacing / command doesn't become unreadable. The / has to be escaped with \
 
-I'm currently stuck on how to condition sed so that it only substitutes on the lines starting with "^@1_" because / is a PHRED symbol, so these appear in the quality scores. 
+I can condition sed so that it only substitutes on the lines starting with "^@1_" because / is a PHRED symbol i.e. appears in the quality scores. 
 
 ```
-cat PHE126.fq | sed 's;/1$;\_1;g' > PHE126.fq.2
+cat PHE126.fq | sed '/^@1_/s/\/1$/_1/' > PHE126.fq.2
 
-for f in $(ls PHE13*); do cat $f | sed 's;/1$;\_1;g' > $f.2; done
-for f in $(ls PHE12*); do cat $f | sed 's;/1$;\_1;g' > $f.2; done
+for f in $(ls PHE13*); do cat $f | sed '/^@1_/s/\/1$/_1/' > $f.2; done
+for f in $(ls PHE12*); do cat $f | sed '/^@1_/s/\/1$/_1/' > $f.2; done
 
 ## and replace /2 in these 
-for f in $(ls *.2.3); do cat $f | sed 's;/2$;\_1;g' > $f.3; done
+for f in $(ls *.2); do cat $f | sed '/^@1_/s/\/2$/_2/' > $f.3; done
+
+
+###split files as above
+
 
 rename
-for i in *.2.3.3; do mv "$i" "${i/.fq._1/_1.fq}" ; done
+for i in *.2.3._1; do mv "$i" "${i/.fq.2.3._1/_1.fq}" ; done
+for i in *.2.3._2; do mv "$i" "${i/.fq.2.3._2/_2.fq}" ; done
 ```
 
 The next steps are all manipulating the files so that I can compare the fwd and rev reads and identify any .rem reads
 
 2. rename these files
 ```
-for i in *.fq._1; do mv "$i" "${i/.fq._1/_1.fq}" ; done
-for i in *.fq._2; do mv "$i" "${i/.fq._2/_2.fq}" ; done
+for i in *.fq._1; do mv "$i" "${i/.fq._1/_R1.fq}" ; done
+for i in *.fq._2; do mv "$i" "${i/.fq._2/_R2.fq}" ; done
 ```
 
 
@@ -92,14 +112,14 @@ for i in *.fq._2; do mv "$i" "${i/.fq._2/_2.fq}" ; done
 
 ```
 for f in $(ls *_1.fq); do grep "_1$" $f > $f.names; done
-for f in $(ls *_2.fq); do grep “_2$" $f > $f.names; done
+for f in $(ls *_2.fq); do grep "_2$" $f > $f.names; done
 
 ```
 
 
 4. substitute the _1 and _2 so that the names are exactly the same.
 ```
-for f in $(ls *_1.fq.names); do cat $f | sed ’s/_1$/e/' > $f.1; done
+for f in $(ls *_1.fq.names); do cat $f | sed 's/_1$/e/' > $f.1; done
 for f in $(ls *_2.fq.names); do cat $f | sed 's/_2$/e/' > $f.1; done
 ```
 
@@ -122,6 +142,45 @@ diff PHE138_1.fq.names.1 PHE138_2.fq.names.1
 I found no .rem files. 
 
 Now I have 2 files per individual: fwd and reverse. 
+
+
+
+
+
+### Check for merged reads
+
+Deren Eaton recommends PEAR https://sco.h-its.org/exelixis/web/software/pear/
+
+http://nbviewer.jupyter.org/gist/dereneaton/dc6241083c912519064e/tutorial_pairddRAD_3.0.4-merged.ipynb
+
+pwd
+/Users/alexjvr/2016RADAnalysis/WPA/rawdata.WPA/others
+```
+brew install pear
+```
+
+And run PEAR on all the files
+
+```
+%%bash
+## then run PEAR on each data file
+for gfile in *_R1.fq; 
+  do pear -f $gfile \
+          -r ${gfile/_R1.fq/_R2.fq} \
+          -o ${gfile/_R1.fq/} \
+          -n 33 \
+          -j 4  >> pear.log 2>&1
+done
+```
+
+
+This won't run. I'm getting an error about illegal characters.. 
+
+
+
+
+
+
 
 #########################################
 ####### Method that didn't work  ########
