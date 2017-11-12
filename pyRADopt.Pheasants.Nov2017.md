@@ -78,7 +78,7 @@ For WPA data I ran process_radtags (only -r: rescue radtags. -c -q filters remov
 
 ```
 
-/usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -f /rawData/Pheasant1_S1_L001_R1_001.fastq.gz  -o ./demultiplexed/ -y fastq -b ./barcodes/2015_barcodes --inline_inline --disable_rad_check -r -D
+/usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -1 /rawData/Pheasant1_S1_L001_R1_001.fastq.gz  -2 /rawData/Pheasant1_S1_L001_R2_001.fastq.gz -o ./demultiplexed/ -y fastq -b ./barcodes/2015_barcodes --inline_inline --disable_rad_check -r -D
 
 ```
   
