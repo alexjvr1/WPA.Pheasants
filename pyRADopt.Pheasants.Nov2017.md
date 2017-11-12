@@ -31,6 +31,7 @@ SphI (7bp recognition site) CATGC-3'
 
 Barcode information in: ddRAD_Info_to_TBray_11.2017.xlsx
 
+Each sample was included 3 times. 
 
 I first need to split the file into fwd and reverse reads. 
 Then I need to check for Illumina adapters
@@ -47,9 +48,37 @@ Since I have paired-end reads I can also look for PCR duplicates which I couldn'
   I'm using process_radtags to demultiplex the data. All data are here on the fmg server: 
   
   /srv/kenlab/alexjvr_p1795/WPA/Nov2017
-  
+
+
+Example of barcode file which includes the RE sites: 
+
+```
+TCAGATGCAGG	TAGCACATGC	PHE079.1
+CATGATGCAGG	GCATACATGC	PHE079.2
+TCGAGTGCAGG	CTGGTCATGC	PHE079.3
+GCATTTGCAGG	TAGCACATGC	PHE080.1
+ACGTATGCAGG	GCATACATGC	PHE080.2
+ATGCTTGCAGG	CTGGTCATGC	PHE080.3
+TCAGATGCAGG	AGCTGTCCATGC	PHE081.1
+CATGATGCAGG	GAGATGTCATGC	PHE081.2
 ```
 
+
+Demultiplex using the output from the HiSeq. --disable_rad_check will allow the inclusion of the restriction site in the barcode
+
+-r : rescue barcodes and radtags
+
+-c : clean data, remove and read with an uncalled base
+
+-q : discard reads with low quality scores (Q20)
+
+-D : capture discarded reads to a file
+
+For WPA data I ran process_radtags (only -r: rescue radtags. -c -q filters removed, since data will be cleaned downstream):
+
+```
+
+/usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -f /rawData/Pheasant1_S1_L001_R1_001.fastq.gz  -o ./demultiplexed/ -y fastq -b ./barcodes/2015_barcodes --inline_inline --disable_rad_check -r -D
 
 ```
   
