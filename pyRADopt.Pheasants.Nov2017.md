@@ -94,5 +94,24 @@ This is only 10% ambiguous barcodes dropped - R.temp 30% on average
 ```
 /usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -1 rawData/WildGenes23_S1_L001_R1_001.fastq.gz  -2 rawData/WildGenes23_S1_L001_R2_001.fastq.gz -o ./demultiplexed/ -y fastq -b barcodes/2017.barcodes --inline_inline --disable_rad_check -r -D
 
+34564814 total sequences;
+  21248178 ambiguous barcode drops;
+  0 low quality read drops;
+  0 ambiguous RAD-Tag drops;
+13316636 retained reads.
+
+This library included other samples, so I only retained ~40% of the reads. 
 ```
-  
+
+## Remove adapter dimer
+
+Use Trimmomatic to remove adapter dimer 
+
+
+```
+screen -S TrimSubset -L
+for i in *.fq; do  java -jar /usr/local/ngseq/src/Trimmomatic-0.33/trimmomatic-0.33.jar PE $i $i.trim ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36;done
+```
+
+
+
