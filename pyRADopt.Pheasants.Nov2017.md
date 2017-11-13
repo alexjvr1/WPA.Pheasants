@@ -50,17 +50,17 @@ Since I have paired-end reads I can also look for PCR duplicates which I couldn'
   /srv/kenlab/alexjvr_p1795/WPA/Nov2017
 
 
-Example of barcode file which includes the RE sites: 
+Example of barcode file which includes the RE sites (there should be tabs between columns, and only "-" or "_" as special characters: 
 
 ```
-TCAGATGCAGG	TAGCACATGC	PHE079.1
-CATGATGCAGG	GCATACATGC	PHE079.2
-TCGAGTGCAGG	CTGGTCATGC	PHE079.3
-GCATTTGCAGG	TAGCACATGC	PHE080.1
-ACGTATGCAGG	GCATACATGC	PHE080.2
-ATGCTTGCAGG	CTGGTCATGC	PHE080.3
-TCAGATGCAGG	AGCTGTCCATGC	PHE081.1
-CATGATGCAGG	GAGATGTCATGC	PHE081.2
+GCTAACATGCAGG	GTCAAGTCATGC	PHE113_2
+AGGACACTGCAGG	AGCTGTCCATGC	PHE113_3
+CTAGGACTGCAGG	CGATCCATGC	PHE113_1
+GCTAACATGCAGG	GAAGCCATGC	PHE113_2
+AGGACACTGCAGG	AGTCACATGC	PHE113_3
+CGTATCATGCAGG	CGATCCATGC	PHE116_1
+ACTGCACTGCAGG	GAAGCCATGC	PHE116_2
+GTACACATGCAGG	AGTCACATGC	PHE116_3
 ```
 
 
@@ -77,8 +77,7 @@ Demultiplex using the output from the HiSeq. --disable_rad_check will allow the 
 For WPA data I ran process_radtags (only -r: rescue radtags. -c -q filters removed, since data will be cleaned downstream):
 
 ```
-
-/usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -1 /rawData/Pheasant1_S1_L001_R1_001.fastq.gz  -2 /rawData/Pheasant1_S1_L001_R2_001.fastq.gz -o ./demultiplexed/ -y fastq -b ./barcodes/2015_barcodes --inline_inline --disable_rad_check -r -D
+/usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -1 rawData/Pheasant1_S1_L001_R1_001.fastq.gz  -2 rawData/Pheasant1_S1_L001_R2_001.fastq.gz -o ./demultiplexed/ -y fastq -b barcodes/2015.barcodes --inline_inline --disable_rad_check -r -D
 
 ```
   
