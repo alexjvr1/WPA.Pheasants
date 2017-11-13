@@ -76,10 +76,21 @@ Demultiplex using the output from the HiSeq. --disable_rad_check will allow the 
 
 For WPA data I ran process_radtags (only -r: rescue radtags. -c -q filters removed, since data will be cleaned downstream):
 
+2015 samples
 ```
 /usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -1 rawData/Pheasant1_S1_L001_R1_001.fastq.gz  -2 rawData/Pheasant1_S1_L001_R2_001.fastq.gz -o ./demultiplexed/ -y fastq -b barcodes/2015.barcodes --inline_inline --disable_rad_check -r -D
 
+
+39417574 total sequences;
+  4072468 ambiguous barcode drops;
+  0 low quality read drops;
+  0 ambiguous RAD-Tag drops;
+35345106 retained reads.
 ```
   
-  
-  
+2017 samples
+```
+/usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -1 rawData/WildGenes23_S1_L001_R1_001.fastq.gz  -2 rawData/WildGenes23_S1_L001_R2_001.fastq.gz -o ./demultiplexed/ -y fastq -b barcodes/2017.barcodes --inline_inline --disable_rad_check -r -D
+
+```
+  
