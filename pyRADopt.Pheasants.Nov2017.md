@@ -86,6 +86,8 @@ For WPA data I ran process_radtags (only -r: rescue radtags. -c -q filters remov
   0 low quality read drops;
   0 ambiguous RAD-Tag drops;
 35345106 retained reads.
+
+This is only 10% ambiguous barcodes dropped - R.temp 30% on average
 ```
   
 2017 samples
