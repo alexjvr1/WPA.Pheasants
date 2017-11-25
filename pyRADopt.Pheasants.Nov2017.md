@@ -105,12 +105,83 @@ This library included other samples, so I only retained ~40% of the reads.
 
 ## Remove adapter dimer
 
-Use Trimmomatic to remove adapter dimer 
+First I concatenated all the copies of the forward and reverse sequences into one forward and one reverse file per sample. (each sample was sequenced three times). I'm just using cat - most of the software assumes that the reads are in the same order in both files. 
 
+Next I'm removing adapter dimer using trimmomatic. 
+
+For one sample
+```
+PHE079_R1.fq PHE079_R2.fq PHE079_R1.trimmed_PE.fq PHE079_R1.trimmed_SE.fq PHE079_R2.trimmed_PE.fq PHE079_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+
+Multiple cores found: Using 16 threads
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Quality encoding detected as phred33
+Input Read Pairs: 260727 Both Surviving: 252866 (96.98%) Forward Only Surviving: 7076 (2.71%) Reverse Only Surviving: 685 (0.26%) Dropped: 100 (0.04%)
+```
+
+A small number of reads are being dropped because they're unpaired. I'm not sure why this is happening, because process_radtags should've already taken care of this. I'll have to read up on this a bit. 
+
+I'm also having trouble specifying two variables in my loop. So I'll run trimmomatic individually for each sample: 
 
 ```
-screen -S TrimSubset -L
-for i in *.fq; do  java -jar /usr/local/ngseq/src/Trimmomatic-0.33/trimmomatic-0.33.jar PE $i $i.trim ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36;done
+TrimmomaticPE: Started with arguments: PHE080_R1.fq PHE080_R2.fq PHE080_R1.trimmed_PE.fq PHE080_R1.trimmed_SE.fq PHE080_R2.trimmed_PE.fq PHE080_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Multiple cores found: Using 16 threads
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Quality encoding detected as phred33
+Input Read Pairs: 684997 Both Surviving: 663234 (96.82%) Forward Only Surviving: 19748 (2.88%) Reverse Only Surviving: 1732 (0.25%) Dropped: 283 (0.04%)
+TrimmomaticPE: Completed successfully
+
+TrimmomaticPE: Started with arguments: PHE081_R1.fq PHE081_R2.fq PHE081_R1.trimmed_PE.fq PHE081_R1.trimmed_SE.fq PHE081_R2.trimmed_PE.fq PHE081_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Multiple cores found: Using 16 threads
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Quality encoding detected as phred33
+Input Read Pairs: 591892 Both Surviving: 572911 (96.79%) Forward Only Surviving: 17438 (2.95%) Reverse Only Surviving: 1356 (0.23%) Dropped: 187 (0.03%)
+TrimmomaticPE: Completed successfully
+
+TrimmomaticPE: Started with arguments: PHE082_R1.fq PHE082_R2.fq PHE082_R1.trimmed_PE.fq PHE082_R1.trimmed_SE.fq PHE082_R2.trimmed_PE.fq PHE082_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Multiple cores found: Using 16 threads
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Quality encoding detected as phred33
+Input Read Pairs: 704827 Both Surviving: 683265 (96.94%) Forward Only Surviving: 19617 (2.78%) Reverse Only Surviving: 1694 (0.24%) Dropped: 251 (0.04%)
+TrimmomaticPE: Completed successfully
+
+TrimmomaticPE: Started with arguments: PHE083_R1.fq PHE083_R2.fq PHE083_R1.trimmed_PE.fq PHE083_R1.trimmed_SE.fq PHE083_R2.trimmed_PE.fq PHE083_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Multiple cores found: Using 16 threads
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Quality encoding detected as phred33
+Input Read Pairs: 528355 Both Surviving: 511498 (96.81%) Forward Only Surviving: 15375 (2.91%) Reverse Only Surviving: 1258 (0.24%) Dropped: 224 (0.04%)
+TrimmomaticPE: Completed successfully
+
+TrimmomaticPE: Started with arguments: PHE084_R1.fq PHE084_R2.fq PHE084_R1.trimmed_PE.fq PHE084_R1.trimmed_SE.fq PHE084_R2.trimmed_PE.fq PHE084_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Multiple cores found: Using 16 threads
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Quality encoding detected as phred33
+Input Read Pairs: 667704 Both Surviving: 645327 (96.65%) Forward Only Surviving: 20485 (3.07%) Reverse Only Surviving: 1633 (0.24%) Dropped: 259 (0.04%)
+TrimmomaticPE: Completed successfully
+
+```
+
+
+
+
+
+
+
+Code I tried. Doesn't work. 
+```
+for file in demultiplexed/*_R1.fq; do withpath="${file}"; filename="demultiplexed/"; base="${filename%*_*.fq}"; echo "${base}"; 
+java -jar /usr/local/ngseq/src/Trimmomatic-0.33/trimmomatic-0.33.jar PE 
+"${base}"*_R1.fq 
+"${base}"*_R2.fq 
+"${base}"*_R1.trimmed_PE.fq {base}"*_R1.trimmed_SE.fq 
+"${base}"*_R2.trimmed_PE.fq {base}"*_R1.trimmed_SE.fq 
+ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36; done
 ```
 
 
