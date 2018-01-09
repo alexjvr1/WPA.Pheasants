@@ -235,3 +235,30 @@ PHE093, PHE109
 ### Palawan
 
 PHE095, PHE108
+
+## Test ipyrad v.2
+
+I keep getting an error at step 3. 
+
+I will try to run through the entire pipeline first using the test data. 
+
+Using PE ddRAD test data supplied by ipyrad I managed to run through the whole pipeline. 
+
+The tutorial is here: https://github.com/dereneaton/ipyrad/blob/master/tests/pairddrad%20tutorial.ipynb
+
+barcodes file should be sample barcode1 barcode2
+
+This all works fine. I had an error about parameter  [13] Max cluster depth within samples. 
+I had to reduce this to 100 i.s.o. the default 1000. 
+
+.... Now with my samples: 
+
+Each sample was sequenced 3 times, so I've demultiplexed using the barcode + restriction enzyme and then I've concatenated everything together. 
+
+*** There's a problem with PHE113 - there are 5 samples in the lane, but I've only got 3. They're also not the correct length, so I need to re-demultiplex and concatenate these samples. For now I've moved PHE113 into /srv/kenlab/alexjvr_p1795/WPA/Nov2017/manually.demultiplexed/separate.3reads.persample
+
+I'm using strict filtering (option 2 for [16]). This looks for illumina adapters as well as restriction cut sites. 
+
+I think the restriction sites have already been removed, but the filter will double check for this. 
+
+
