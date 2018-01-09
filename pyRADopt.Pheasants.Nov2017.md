@@ -15,6 +15,22 @@ Firstly to improve the SNP calling for the dataset by testing pyRAD.
   - Relatedness
   
 
+## iPyrad
+
+I'm using a new version of pyrad: http://ipyrad.readthedocs.io/files.html
+
+There's a stand alone installation for ipyrad and it can be installed on the local drive on the server without any permissions. 
+
+The basic conda installation didn't work for me. I had to uninstall and reinstall everything using pip
+
+```
+pip uninstall ipyrad
+pip install ipyrad
+```
+
+
+
+
 ## Data
 
 Paired-End ddRAD data sequenced on MiSeq. 
@@ -185,4 +201,37 @@ ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:1
 ```
 
 
+## iPyrad test
 
+So now I've demultiplexed, removed adapters, and combined multiple reads into one. 
+
+I've also renamed all the files to have _R1_ and _R2_ as is needed by ipyrad. 
+
+Aim: 
+
+1. Run iPyrad on a subset of samples to test whether it works. 
+
+2. Test different clustering thresholds (85-95%) to find the optimal clustering threshold across all species
+
+
+Representatives of different species used for test: 
+
+### Malayan
+
+PHE080, PHE081
+
+### Bornean
+
+PHE101, PHE102
+
+### Mountain
+
+PHE088, PHE089
+
+### Germains
+
+PHE093, PHE109
+
+### Palawan
+
+PHE095, PHE108
