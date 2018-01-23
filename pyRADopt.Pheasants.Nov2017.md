@@ -28,7 +28,13 @@ pip uninstall ipyrad
 pip install ipyrad
 ```
 
+## Jupyter notebook
 
+http://ipyrad.readthedocs.io/HPC_Tunnel.html
+
+http://kawahara.ca/how-to-run-an-ipythonjupyter-notebook-on-a-remote-machine/
+
+Use the instructions in the second link to link to fgcz. 
 
 
 ## Data
