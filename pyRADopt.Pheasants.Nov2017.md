@@ -125,6 +125,18 @@ This is only 10% ambiguous barcodes dropped - R.temp 30% on average
 This library included other samples, so I only retained ~40% of the reads. 
 ```
 
+Nov 2017 samples
+```
+/usr/local/ngseq/stow/stacks-1.28/bin/process_radtags -i gzfastq -1 rawData/data201712/phe_rin_S1_L001_R1_001.fastq.gz -2 rawData/data201712/phe_rin_S1_L001_R2_001.fastq.gz -o ./demultiplexed/Nov2017 -y fastq -b barcodes/Nov2017.barcodes --inline_inline --disable_rad_check -r -D
+
+34737942 total sequences;
+  7431512 ambiguous barcode drops;
+  0 low quality read drops;
+  0 ambiguous RAD-Tag drops;
+27306430 retained reads.
+```
+
+
 ## Remove adapter dimer
 
 First I concatenated all the copies of the forward and reverse sequences into one forward and one reverse file per sample. (each sample was sequenced three times). I'm just using cat - most of the software assumes that the reads are in the same order in both files. 
