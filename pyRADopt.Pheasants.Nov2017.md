@@ -133,7 +133,7 @@ Next I'm removing adapter dimer using trimmomatic.
 
 For one sample
 ```
-PHE079_R1.fq PHE079_R2.fq PHE079_R1.trimmed_PE.fq PHE079_R1.trimmed_SE.fq PHE079_R2.trimmed_PE.fq PHE079_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+java -jar /usr/local/ngseq/src/Trimmomatic-0.33/trimmomatic-0.33.jar PE PHE079_R1.fq PHE079_R2.fq PHE079_R1.trimmed_PE.fq PHE079_R1.trimmed_SE.fq PHE079_R2.trimmed_PE.fq PHE079_R2.trimmed_SE.fq ILLUMINACLIP:/usr/local/ngseq/src/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 Multiple cores found: Using 16 threads
 Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
