@@ -278,3 +278,7 @@ I'm using strict filtering (option 2 for [16]). This looks for illumina adapters
 I think the restriction sites have already been removed, but the filter will double check for this. 
 
 
+### Graphs for best clustering threshold. 
+
+The stats files are all found on fgcz47 here: 
+
