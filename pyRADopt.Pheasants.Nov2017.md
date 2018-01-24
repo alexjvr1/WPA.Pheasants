@@ -254,11 +254,9 @@ PHE093, PHE109
 
 PHE095, PHE108
 
-## Test ipyrad v.2
+## PyRADopt
 
-I keep getting an error at step 3. 
-
-I will try to run through the entire pipeline first using the test data. 
+I'm testing clustering thresholds between 85-95%. I've run all of this through a Jupyter notebok. 
 
 Using PE ddRAD test data supplied by ipyrad I managed to run through the whole pipeline. 
 
@@ -271,9 +269,9 @@ I had to reduce this to 100 i.s.o. the default 1000.
 
 .... Now with my samples: 
 
-Each sample was sequenced 3 times, so I've demultiplexed using the barcode + restriction enzyme and then I've concatenated everything together. 
+Each sample was sequenced 3 times, so I've demultiplexed using the barcode + restriction enzyme. I keep the samples in separate folders (i.e version 1 of all samples in folder 1, etc). I'm also running trimmomatic on all samples to remove adapter dimer and illumina adapters. 
 
-*** There's a problem with PHE113 - there are 5 samples in the lane, but I've only got 3. They're also not the correct length, so I need to re-demultiplex and concatenate these samples. For now I've moved PHE113 into /srv/kenlab/alexjvr_p1795/WPA/Nov2017/manually.demultiplexed/separate.3reads.persample
+See Jupyter notebook for the rest of the pipeline. 
 
 I'm using strict filtering (option 2 for [16]). This looks for illumina adapters as well as restriction cut sites. 
 
