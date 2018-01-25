@@ -231,13 +231,13 @@ dev.off()
 ``` 
 
 
-3. Analyses as run by Edinburgh zoo before: 
+## 3. Analyses as run by Edinburgh zoo before: 
   
-  3.1. Population Structure
+  ### 3.1. Population Structure
 
-    a. PCA 
+    #### a. PCA 
     
-    b. fastStructure with all individuals
+    #### b. fastStructure with all individuals
     
   3.2. Hybridisation with Mountain peacock (query individuals)
   
