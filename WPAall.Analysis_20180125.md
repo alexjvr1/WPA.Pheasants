@@ -422,7 +422,6 @@ Graphs can be found here: WPAall.structure.plots_20180125.xlsx
   
 ###  3.3 Parentage analysis for Bornean peacock
     
- #### a. Number of variable loci in Bornean peacock
 
 subset the vcf file for only the Bornean pheasant. 
 
@@ -437,8 +436,24 @@ Run Time = 0.00 seconds
 ```
 
 
+#### a. Loci with maf >0.3
 
 
-#### b. Loci with maf >0.3
-    
-    c. Obs heterozygosity
+```
+vcftools --vcf WPA.Bornean.recode.vcf --maf 0.3 --recode --recode-INFO-all --out WPA.Bornean.0.3
+
+VCFtools - v0.1.14
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA.Bornean.recode.vcf
+	--recode-INFO-all
+	--maf 0.3
+	--out WPA.Bornean.0.3
+	--recode
+
+After filtering, kept 5 out of 5 Individuals
+Outputting VCF file...
+After filtering, kept 159 out of a possible 2049 Sites
+Run Time = 0.00 seconds    
+```
