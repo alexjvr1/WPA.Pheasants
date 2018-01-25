@@ -235,9 +235,46 @@ dev.off()
   
   ### 3.1. Population Structure
 
-    #### a. PCA 
+  #### a. PCA 
     
-    #### b. fastStructure with all individuals
+  ```
+library(pcadapt)
+
+path_to_WPA <- "WPAall.s3.recode.vcf"
+
+WPA.vcf <- read.pcadapt(path_to_WPA, type="vcf")
+
+File attributes:
+  meta lines: 10
+  header line: 11
+  variant count: 2049
+  column count: 78
+Meta line 10 read in.
+All meta lines processed.
+gt matrix initialized.
+Character matrix gt created.
+  Character matrix gt rows: 2049
+  Character matrix gt cols: 78
+  skip: 0
+  nrows: 2049
+  row_num: 0
+Processed variant: 2049
+All variants processed
+ 2049 variants have been processed.
+ 14 variants have been discarded as they are not SNPs.
+ 
+  ```
+ 
+ How many principal components explain the data? 
+ 
+ I had to rename tmp.pcadapt to WPAall.s3.recode.pcadapt in bash (in the folder)
+ ```
+ x <- pcadapt(WPA.vcf, K=20)
+ ```
+ 
+ 
+ 
+  #### b. fastStructure with all individuals
     
   3.2. Hybridisation with Mountain peacock (query individuals)
   
