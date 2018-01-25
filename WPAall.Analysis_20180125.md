@@ -118,7 +118,7 @@ I could probably choose a lower threshold...
  ### b. number of loci -> filtering -> final loci
  
  
-| |	number of sites |
+| Filter |	number of sites |
 |-------------------------------------------------------|------|
 |variants called by pyRAD	|184264|
 |remove loci with minor allele frequency <5%	|125671|
@@ -126,7 +126,63 @@ I could probably choose a lower threshold...
 |reduce to one SNP per locus|	2049|
   
   
-  c. number of reads per individual
+ ### c. number of loci called per individual
+ 
+ Number of consensus reads in the final dataset. 
+ 
+ in R: 
+ 
+ ```
+ library(ggplot2)
+ 
+ poplist <- read.table("poplist", header=T)
+ 
+ head(poplist)
+ 
+    indiv   species         colour
+1 PHE079  Mountain mediumseagreen
+2 PHE080 Malaysian        hotpink
+3 PHE081 Malaysian        hotpink
+4 PHE082 Malaysian        hotpink
+5 PHE083 Malaysian        hotpink
+6 PHE084 Malaysian        hotpink
+ 
+ 
+WPAall.stats <- read.table("WPAall.stats", head=T)  ##copied from the end of the final ipyrad outfile
+
+head(WPAall.stats)
+
+    Indiv state reads_raw reads_passed_filter clusters_total clusters_hidepth
+19 PHE101     7    736916              734096          29156            11443
+20 PHE102     7    884581              880236          33845            11991
+21 PHE103     7    503629              502065          24538            10423
+22 PHE104     7    806535              803410          33746            11801
+28 PHE111     7    574081              571910          28709            10871
+30 PHE113     7    519350              518017          33144            10067
+   hetero_est error_est reads_consens loci_in_assembly species      colour
+19   0.005720  0.001546          9027             7352 Bornean dodgerblue1
+20   0.005668  0.001632          8929             7191 Bornean dodgerblue1
+21   0.005242  0.001591          9310             7536 Bornean dodgerblue1
+22   0.006352  0.001682          9082             7270 Bornean dodgerblue1
+28   0.005823  0.001606          9494             7650 Bornean dodgerblue1
+30   0.003841  0.000900          9020             7522  Bronze darkorchid3 
+
+
+WPAall.stats$species <- poplist$species
+WPAall.stats$colour <- poplist$colour
+
+attach(WPAall.stats) 
+WPAall.stats <- WPAall.stats[order(WPAall.stats$species),] ##order by species name
+
+WPAall.stats$Indiv <- factor(WPAall.stats$Indiv, levels=WPAall.stats$Indiv) ##keep the order of all the individuals
+
+p22 <- ggplot(WPAall.stats, aes(x=Indiv, y=reads_consens)) + geom_bar(stat="identity", colour=WPAall.stats$colour)  ##barplot
+
+pdf("WPAall.consensusReads.perIndiv.pdf")
+p22
+dev.off()
+ ```
+ 
   
   d. missingness per locus and per individual (heatmap)
   
