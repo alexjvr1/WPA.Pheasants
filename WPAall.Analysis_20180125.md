@@ -237,7 +237,7 @@ dev.off()
 
   #### a. PCA 
     
-  ```
+```
 library(pcadapt)
 
 path_to_WPA <- "WPAall.s3.recode.vcf"
@@ -263,7 +263,7 @@ All variants processed
  2049 variants have been processed.
  14 variants have been discarded as they are not SNPs.
  
-  ```
+```
  
  How many principal components explain the data? 
  
@@ -290,6 +290,15 @@ dev.off()
  
  
   #### b. fastStructure with all individuals
+  
+Convert vcf to fastStructure format using pgdSpider. 
+
+copy onto server and run K1-10. These have to specified manually
+```
+/usr/bin/python2.7 /usr/local/fastStructure-20150714/structure.py -K 1 --format=str --input=WPAall.s3.str --output=WPA_K1.1
+
+```
+
     
   3.2. Hybridisation with Mountain peacock (query individuals)
   
