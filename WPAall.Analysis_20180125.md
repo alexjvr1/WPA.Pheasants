@@ -318,6 +318,8 @@ Graphs can be found here: WPAall.structure.plots_20180125.xlsx
 
 #### c. DAPC
 
+** I'm not using this analysis... 
+
 Since fastStructure is not available immediately, I'll replicate the Zoo's analysis with DAPC to look at population assignment: 
 
 ```
@@ -332,47 +334,111 @@ grp.WPAall <- find.clusters(WPA.dapc, max.n.clust=40)
 ##kept 70 PCs (i.e. all of them)
 ##Chose K=7; this is where the graph flattens off, and it is the expected number of species. 
 
+
+dapc1.WPA <- dapc(WPA.dapc, grp.WPAall$grp)
+scatter(dapc1.WPA)
 ```
  
  ### 3.2. Hybridisation with Mountain peacock (query individuals)
   
+ First I'll subset all the data to include only the query samples, Mountain, Malaysian, Grey, and Bronze. 
+ 
+ ```
+ vcftools --vcf WPAall.s3.recode.vcf --keep Malaysian.Mountain.Grey.Bronze.names --recode --recode-INFO-all --out WPAsubset
+ ```
+  
+  
   #### a. PCA with 
-      
-  #####    i. Mountain Peacock and Grey (query individuals)
-      
-      
-      
-      
-  #####   ii. Mountain Peackock and Bronze
-      
+  
+ 
+```    
+path_to_WPAsubset <- "WPAsubset.recode.vcf"
+
+WPAsubset.vcf <- read.pcadapt(path_to_WPAsubset, type="vcf")
+ 
+```
+ 
+ How many principal components explain the data? 
+ 
+ I had to rename tmp.pcadapt to WPAall.s3.recode.pcadapt in bash (in the folder)
+ ```
+ x <- pcadapt(WPAsubset.vcf, K=20)
+ 
+ Reading file WPAsubset.recode.pcadapt...
+Number of SNPs: 2039
+Number of individuals: 53
+Number of SNPs with minor allele frequency lower than 0.05 ignored: 299
+9014 out of 108067 missing data ignored.
+
+
+pdf("WPAsubset.pcadapt.screeplot.pdf")
+plot(x,option="screeplot")  ##PC for pop structure = on the steep curve
+dev.off()
+```
+
+And plot the PCA with populations coloured
+
+```
+subset.poplist <- read.table("subset.poplist", head=T)
+attach(subset.poplist) <- subset.poplist[order(indiv),] ##make sure that this is in the same order as in the vcf file (check vcf with bcftools query -l)
+subset.poplist$species <- as.character(subset.poplist$species) #to keep the order this has to be factorised
+
+pdf("WPAsubset.pca.pdf")
+plot(x,option="scores",pop=subset.poplist$species)
+dev.off()
+```
+  
+ 
+#### b. fastStructure with Mountain, Malaysian, Bronze, Grey and queries
+  
+
+Convert vcf to fastStructure format using pgdSpider. 
+
+copy onto server and run K1-10. These have to specified manually
+
+/srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/fastStr.subset
+```
+/usr/bin/python2.7 /usr/local/ngseq/src/fastStructure-1.0_20160929/structure.py -K 1 --format=str --input=WPAall.s3.str --output=WPA_K1.1
+
+```
+
+Choose the model complexity (How many Ks)
+```
+/usr/bin/python2.7 /usr/local/ngseq/src/fastStructure-1.0_20160929/chooseK.py --input=/srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/fastStr.subset/WPAsubset
+
+Model complexity that maximizes marginal likelihood = 3
+Model components used to explain structure in data = 3
+```
+
+And now I'll create the structure plots for K3-5
+
+
+Copy the output files to the mac. 
+
+
+Graphs can be found here: WPAall.structure.plots_20180125.xlsx
+
   
   
-  #### b. fastStructure with 
-  
-  ##### i. Mountain Peacock vs Grey
-  
-  ##### ii. Mountain peacock vs Bronze
-  
-  
-  3.3. Hybridisation with Malayan peacock
-  
-  a. PCA with 
-      
-      i. Malayan Peacock and Grey
-      
-      ii. Malayan Peackock and Bronze
-      
-  #### b. fastStructure with 
-  
-  ##### i. Malayan Peacock vs Grey
-  
-  ##### ii. Malayan peacock vs Bronze
-  
-  
-  3.4 Parentage analysis for Bornean peacock
+###  3.3 Parentage analysis for Bornean peacock
     
-    a. Number of variable loci in Bornean peacock
-    
-    b. Loci with maf >0.3
+ #### a. Number of variable loci in Bornean peacock
+
+subset the vcf file for only the Bornean pheasant. 
+
+```
+vcftools --vcf WPAall.s3.recode.vcf --keep Bornean.names --recode --recode-INFO-all --out WPA.Bornean
+
+Keeping individuals in 'keep' list
+After filtering, kept 5 out of 69 Individuals
+Outputting VCF file...
+After filtering, kept 2049 out of a possible 2049 Sites
+Run Time = 0.00 seconds
+```
+
+
+
+
+#### b. Loci with maf >0.3
     
     c. Obs heterozygosity
