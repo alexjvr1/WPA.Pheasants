@@ -117,7 +117,13 @@ I could probably choose a lower threshold...
 
  ### b. number of loci -> filtering -> final loci
  
- 
+ |:-:|:-:|
+| |	number of sites |
+|variants called by pyRAD	|184264|
+|remove loci with minor allele frequency <5%	|125671|
+|remove loci genotyped in less than 80% of individuals	|15618|
+|reduce to one SNP per locus|	2049|
+  
   
   c. number of reads per individual
   
