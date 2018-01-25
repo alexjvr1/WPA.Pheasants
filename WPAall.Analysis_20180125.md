@@ -90,14 +90,34 @@ After filtering, kept 2049 out of a possible 125671 Sites
 Run Time = 0.00 seconds
 ```
 
+Final output: 
+
+2049 loci genotyped for 69 individuals. 
+
+Genotyping rate of 0.886066
 
 
-
-2. statistics on output
+## 2. statistics on output
   
-  a. pyradOpt graphs
+  ### a. pyradOpt graphs
   
-  b. number of loci -> filtering -> final loci
+To select the optimum number of clusters I ran pyRAD for 85-95% clustering across 10 individuals (2 per species). 
+
+I copied all the stats output files to my computer: /Users/alexjvr/2016RADAnalysis/WPA/Jan2018_pyRADOpt
+
+I copied the final tables from each of these into excel, added the clustering threshold and loaded this into R.
+
+Graphs: pyradOpt.plots_20170124.pdf (on my computer). 
+
+According the the graphs, it looks like the optimal clustering threshold is between 90-93%. For over clustering (low threshold) we expect high heterozygosity and low numnbers of loci, and for over splitting (high threshold) we expect low heterozygosity and increased loci. 
+
+But remember that I have a filter for min-depth 2. So I see a decrease in the number of loci found at 93%. To me it looks like the heterozygosity decreases more rapidly at ~90 clustering threshold. At 94% loci are split up so much that even within species they are not the same anymore. 
+
+I could probably choose a lower threshold... 
+
+ ### b. number of loci -> filtering -> final loci
+ 
+ 
   
   c. number of reads per individual
   
