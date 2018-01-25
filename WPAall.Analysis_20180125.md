@@ -184,8 +184,53 @@ dev.off()
  ```
  
   
-  d. missingness per locus and per individual (heatmap)
+ ### d. missingness per locus and per individual (heatmap)
   
+  I can plot the missingness using vcfR https://knausb.github.io/vcfR_documentation/omitting_data.html
+  
+  First I have to gzip the vcf file and then import it into R: 
+  
+```
+library(vcfR) 
+vcf <- read.vcfR("WPAall.s3.vcf.gz")
+
+dp <- extract.gt(vcf, element = "DP", as.numeric=TRUE) ##Creates a dataframe of the genotypes
+
+vcf  ##gives info about the file
+```
+
+vcfR doesn't see ./. as missing data if any depth information is available. i.e. it thinks there's no missing data. But I can get around this by assigning all missing genotypes (coded 0 in dp) to NA. 
+
+```
+dp2 <- dp ##so I don't have to keep recreating the dp file
+
+dp2(dp2==0) <- NA ##and I double checked with the vcf file if the missing data was in the correct place. 
+
+vcf
+***** Object of Class vcfR *****
+69 samples
+2049 CHROMs
+2,049 variants
+Object size: 2 Mb
+11.32 percent missing data
+*****        *****         *****
+``` 
+
+Okay, that corresponds with the 89% genotyping rate that i got before. I can create a really nice heatmap using vcfR, but I first want to sort the data by species so that we can compare the genotyping between them: 
+
+``` 
+dp2 <- as.data.frame(dp2)
+
+dp3 <- dp2[c("PHE079", "PHE088", "PHE089", "PHE090", "PHE091", "PHE092", "PHE116", "PHE135", "PHE136", "PHE137", "PHE138", "PHE080", "PHE081", "PHE082", "PHE083", "PHE084", "PHE085", "PHE086", "PHE087", "PHE100", "PHE112", "PHE126", "PHE127", "PHE133", "PHE134", "PHE093", "PHE109", "PHE094", "PHE095", "PHE108", "PHE101", "PHE102", "PHE103", "PHE104", "PHE111", "PHE105", "PHE106", "PHE107", "PHE113", "PHE113.control1", "PHE113.control2", "PHE113.control3", "PHE139", "PHE139", "PHE140", "PHE141", "PHE142", "PHE143", "PHE144", "PHE145", "PHE146", "PHE147", "PHE148", "PHE149", "PHE150", "PHE150a", "PHE150b", "PHE150c", "PHE151", "PHE152", "PHE153", "PHE154", "PHE155", "PHE156", "PHE157", "PHE158", "PHE159", "PHE160", "PHE161", "PHE162")]
+
+dp3 <- as.matrix(dp3)
+
+pdf("WPA.Missingness.plot.pdf")
+heatmap.bp(dp3[1:1000,], rlabels = FALSE)
+dev.off()
+``` 
+
+
 3. Analyses as run by Edinburgh zoo before: 
   
   3.1. Population Structure
