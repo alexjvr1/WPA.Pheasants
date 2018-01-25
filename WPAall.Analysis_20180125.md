@@ -270,8 +270,23 @@ All variants processed
  I had to rename tmp.pcadapt to WPAall.s3.recode.pcadapt in bash (in the folder)
  ```
  x <- pcadapt(WPA.vcf, K=20)
- ```
  
+pdf(WPA.pcadapt.screeplot.pdf)
+plot(x,option="screeplot")  ##PC for pop structure = on the steep curve
+dev.off()
+```
+
+And plot the PCA with populations coloured
+
+```
+poplist <- read.table("poplist", head=T)
+attach(poplist) <- poplist[order(indiv),] ##make sure that this is in the same order as in the vcf file (check vcf with bcftools query -l)
+poplist$species <- as.character(poplist$species) #to keep the order this has to be factorised
+
+pdf("WPAall.pca.pdf")
+plot(x,option="scores",pop=poplist$species)
+dev.off()
+```
  
  
   #### b. fastStructure with all individuals
