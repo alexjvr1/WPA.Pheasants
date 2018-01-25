@@ -310,10 +310,10 @@ Model components used to explain structure in data = 5
 And now I'll create the structure plots for K5-8
 
 
-Copy the output files to the mac
+Copy the output files to the mac. 
 
 
-
+Graphs can be found here: WPAall.structure.plots_20180125.xlsx
 
 
 #### c. DAPC
@@ -323,7 +323,14 @@ Since fastStructure is not available immediately, I'll replicate the Zoo's analy
 ```
 library(adegenet)
 
-WPA.dapc <- read.structure("WPAall.s3.str")  ##str 
+WPA.dapc <- read.structure("WPAall.s3.str")  ##original structure input from vcf2str in pgdspider. 2049 loci, 69 individuals. Col 2 = pop assignment. 
+
+##estimate the number of clusters
+
+grp.WPAall <- find.clusters(WPA.dapc, max.n.clust=40)
+
+##kept 70 PCs (i.e. all of them)
+##Chose K=7; this is where the graph flattens off, and it is the expected number of species. 
 
 ```
  
