@@ -339,6 +339,14 @@ WPA.dapc <- read.structure("WPAall.s3.str")  ##str
   #####   ii. Mountain Peackock and Bronze
       
   
+  
+  #### b. fastStructure with 
+  
+  ##### i. Mountain Peacock vs Grey
+  
+  ##### ii. Mountain peacock vs Bronze
+  
+  
   3.3. Hybridisation with Malayan peacock
   
   a. PCA with 
@@ -347,7 +355,13 @@ WPA.dapc <- read.structure("WPAall.s3.str")  ##str
       
       ii. Malayan Peackock and Bronze
       
-      
+  #### b. fastStructure with 
+  
+  ##### i. Malayan Peacock vs Grey
+  
+  ##### ii. Malayan peacock vs Bronze
+  
+  
   3.4 Parentage analysis for Bornean peacock
     
     a. Number of variable loci in Bornean peacock
