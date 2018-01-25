@@ -295,11 +295,38 @@ Convert vcf to fastStructure format using pgdSpider.
 
 copy onto server and run K1-10. These have to specified manually
 ```
-/usr/bin/python2.7 /usr/local/fastStructure-20150714/structure.py -K 1 --format=str --input=WPAall.s3.str --output=WPA_K1.1
+/usr/bin/python2.7 /usr/local/ngseq/src/fastStructure-1.0_20160929/structure.py -K 1 --format=str --input=WPAall.s3.str --output=WPA_K1.1
 
 ```
 
-    
+Choose the model complexity (How many Ks)
+```
+/usr/bin/python2.7 /usr/local/ngseq/src/fastStructure-1.0_20160929/chooseK.py --input=/srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/fastStr/WPA
+
+Model complexity that maximizes marginal likelihood = 5
+Model components used to explain structure in data = 5
+```
+
+And now I'll create the structure plots for K5-8
+
+
+Copy the output files to the mac
+
+
+
+
+
+#### c. DAPC
+
+Since fastStructure is not available immediately, I'll replicate the Zoo's analysis with DAPC to look at population assignment: 
+
+```
+library(adegenet)
+
+WPA.dapc <- read.structure("WPAall.s3.str")  ##str 
+
+```
+ 
  ### 3.2. Hybridisation with Mountain peacock (query individuals)
   
   #### a. PCA with 
