@@ -300,13 +300,16 @@ copy onto server and run K1-10. These have to specified manually
 ```
 
     
-  3.2. Hybridisation with Mountain peacock (query individuals)
+ ### 3.2. Hybridisation with Mountain peacock (query individuals)
   
-    a. PCA with 
+  #### a. PCA with 
       
-      i. Mountain Peacock and Grey (query individuals)
+  #####    i. Mountain Peacock and Grey (query individuals)
       
-      ii. Mountain Peackock and Bronze
+      
+      
+      
+  #####   ii. Mountain Peackock and Bronze
       
   
   3.3. Hybridisation with Malayan peacock
