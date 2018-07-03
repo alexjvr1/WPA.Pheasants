@@ -285,6 +285,8 @@ The stats files are all found on fgcz47 here: /srv/kenlab/alexjvr_p1795/WPA/Jan2
 And a summary on the mac here: /Users/alexjvr/2016RADAnalysis/WPA
 
 
+Chosen clustering threshold: 93%
+
 ![alt_txt][WPA.stats]
 
 [WPA.stats]:https://user-images.githubusercontent.com/12142475/42228491-054e6f52-7edc-11e8-8d69-b24d5ca083d9.png
