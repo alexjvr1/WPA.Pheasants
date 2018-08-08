@@ -57,6 +57,7 @@ X <- pcadapt(input = vcf, K=12)
 plot(X, option = "screeplot") # plots a scree plot
 ```
  ```
+WPA.names <- read.table("WPAall.names", header=T)
 plot(X, option = "scores") 
 ```
 plots a score plot but without assigning colors/IDs to any of the clusters, which is no good
@@ -65,3 +66,6 @@ plot(X, option = "scores", pop =)
 ```
   would add IDs to the clusters but using WPA.names for pop is giving an error, "Aesthetics must be either length 1 or the same as the data (69): colour, x, y"
 ```
+plot(X, option = "scores", pop = WPA.names$species) 
+```
+
