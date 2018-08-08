@@ -69,6 +69,7 @@ plot(X, option = "scores", pop =)
 plot(X, option = "scores", pop = WPA.names$species) 
 plot(X, option = "qqplot") # gives a Q-Q plot showing how well the observed p-values conform to the expected
 hist(X$pvalues, xlab = "p-values", main = NULL, breaks = 50, col = "purple") #creates a histogram of the p-values of X
+X <- pcadapt(input = vcf, K=5) #changes K to the optimum of the data set (in this case, 5)
 ```
 ```
 
