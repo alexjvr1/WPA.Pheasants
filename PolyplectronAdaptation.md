@@ -81,5 +81,12 @@ SEall.fst <- pairwise.fst(SEall.132, pop=NULL, res.type=c("dist", "matrix")) #ta
 m <- as.matrix(SEall.fst)
 m2 <- melt(m)[melt(upper.tri(m))$value,]
 names(m2)<- c("c1","c2", "distance")
+
+library(gplots)
+shadesOfGrey <- colorRampPalette(c("grey100", "grey0"))
+Dend <- read.table("WPAall.names", header=T) 
+Dend.colours <- as.character(Dend$colour) #pulls in the colours I set as an extra column (thru Excel) into WPAall.names to use for the heatmap later on
+
+heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=F, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap but without a key to match the colors to species?
 ```
 
