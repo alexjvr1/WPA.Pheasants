@@ -11,6 +11,17 @@ Questions
 4. How do these loci fit in with what we know from other species? 
 
 
+## Data
+
+The data are on the fgcz47 server
+
+alexjvr@fgcz-c-047.uzh.ch
+
+pwd Bombin@15
+
+```
+vcf file: /srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/WPAall.s3.recode.vcf
+```
 
 ## Population structure
 
