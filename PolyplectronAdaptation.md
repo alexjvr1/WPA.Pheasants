@@ -54,5 +54,7 @@ setwd("C:/Users/Vilhelmiina/Desktop/WPA")
 path_to_file <- "C:/Users/Vilhelmiina/Desktop/WPA"
 vcf <- read.pcadapt("WPAall.s3.recode.vcf", type="vcf")
 X <- pcadapt(input = vcf, K=12)
-plot(X, option = "screeplot")
+plot(X, option = "screeplot") # plots a scree plot
+plot(X, option = "scores") # plots a score plot but without assigning colors/IDs to any of the clusters
+plot(X, option = "scores", pop =) # would add IDs to the clusters but using WPA.names for pop is giving an error, "Aesthetics must be either length 1 or the same as the data (69): colour, x, y"
 ```
