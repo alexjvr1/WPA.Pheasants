@@ -88,5 +88,7 @@ Dend <- read.table("WPAall.names", header=T)
 Dend.colours <- as.character(Dend$colour) #pulls in the colours I set as an extra column (thru Excel) into WPAall.names to use for the heatmap later on
 
 heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=F, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap but without a key to match the colors to species?
+
+heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=Dend.colours$species, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #does the same but also adds species names - though these are cut off on the sides?
 ```
 
