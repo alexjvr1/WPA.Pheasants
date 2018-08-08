@@ -48,8 +48,11 @@ PCAdapt vignette:
 ```
 https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html
 ```
-## Code that works (08/08/2018)
+### Code that works (08/08/2018)
 ```
+setwd("C:/Users/Vilhelmiina/Desktop/WPA") 
 path_to_file <- "C:/Users/Vilhelmiina/Desktop/WPA"
-vcf <- read.pcadapt("WPAall.s3.recode.vcf", type="vcf") 
+vcf <- read.pcadapt("WPAall.s3.recode.vcf", type="vcf")
+X <- pcadapt(input = vcf, K=12)
+plot(X, option = "screeplot")
 ```
