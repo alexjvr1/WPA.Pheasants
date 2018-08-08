@@ -67,5 +67,8 @@ plot(X, option = "scores", pop =)
   would add IDs to the clusters but using WPA.names for pop is giving an error, "Aesthetics must be either length 1 or the same as the data (69): colour, x, y"
 ```
 plot(X, option = "scores", pop = WPA.names$species) 
+plot(X, option = "qqplot") # gives a Q-Q plot showing how well the observed p-values conform to the expected
+hist(X$pvalues, xlab = "p-values", main = NULL, breaks = 50, col = "purple") #creates a histogram of the p-values of X
+```
 ```
 
