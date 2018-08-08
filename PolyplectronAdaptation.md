@@ -29,6 +29,15 @@ You can get a list of the individuals (in order) in the vcf file with this commn
 
 bcftools query -l [vcf.file.name]     ### the square brackets is a placeholder for whatever vcf file you want to look at. You can copy and paste these names out onto your computer. 
 ```
+I've made a file with all the indiv species names here: 
+```
+alexjvr@fgcz-c-047.uzh.ch:/srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/WPAall.names
+```
+You can copy that over to your computer using scp again. Or use cat WPAall.Analyses/WPAall.names to see it all on your screen, and copy and paste it onto your computer. The file as is (WPAall.names) can be read into R as a table with headers: 
+.e.g
+```
+WPA.names <- read.table("WPAall.names", header=T)
+```
 
 
 
