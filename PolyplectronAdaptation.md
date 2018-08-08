@@ -25,4 +25,8 @@ vcf file: /srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/WPAall.s3.recode
 
 ## Population structure
 
+PCAdapt vignette:
 
+```
+https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html
+```
