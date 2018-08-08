@@ -72,10 +72,14 @@ hist(X$pvalues, xlab = "p-values", main = NULL, breaks = 50, col = "purple") #cr
 X <- pcadapt(input = vcf, K=5) #changes K to the optimum of the data set (in this case, 5)
 ```
 ```
-> SEall.132 <- read.structure("WPA_structure.stru") #created a genind object
-> pop.factor <- as.factor(WPA.names$species)
-> SEall.132@pop <- pop.factor #creates additional column in SEall.132 which is the species names
-> hier.SEall <- genind2hierfstat(SEall.132)
-> SEall.fst <- pairwise.fst(SEall.132, pop=NULL, res.type=c("dist", "matrix"))
+SEall.132 <- read.structure("WPA_structure.stru") #created a genind object
+pop.factor <- as.factor(WPA.names$species)
+SEall.132@pop <- pop.factor #creates additional column in SEall.132 which is the species names
+hier.SEall <- genind2hierfstat(SEall.132)
+SEall.fst <- pairwise.fst(SEall.132, pop=NULL, res.type=c("dist", "matrix")) #takes a while to execute
+
+m <- as.matrix(SEall.fst)
+m2 <- melt(m)[melt(upper.tri(m))$value,]
+names(m2)<- c("c1","c2", "distance")
 ```
 
