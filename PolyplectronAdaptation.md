@@ -50,6 +50,7 @@ https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html
 ```
 ### Code that works (08/08/2018)
 ```
+library(pcadapt)
 setwd("C:/Users/Vilhelmiina/Desktop/WPA") 
 path_to_file <- "C:/Users/Vilhelmiina/Desktop/WPA"
 vcf <- read.pcadapt("WPAall.s3.recode.vcf", type="vcf")
@@ -72,7 +73,12 @@ hist(X$pvalues, xlab = "p-values", main = NULL, breaks = 50, col = "purple") #cr
 X <- pcadapt(input = vcf, K=5) #changes K to the optimum of the data set (in this case, 5)
 ```
 ```
-SEall.132 <- read.structure("WPA_structure.stru") #created a genind object
+library(adegenet)
+library(hierfstat)
+library(reshape)
+
+SEall.132 <- read.structure("WPA_structure.stru") #created a genind object - PAUSE and fill in required data before continuing
+
 pop.factor <- as.factor(WPA.names$species)
 SEall.132@pop <- pop.factor #creates additional column in SEall.132 which is the species names
 hier.SEall <- genind2hierfstat(SEall.132)
@@ -85,10 +91,14 @@ names(m2)<- c("c1","c2", "distance")
 library(gplots)
 shadesOfGrey <- colorRampPalette(c("grey100", "grey0"))
 Dend <- read.table("WPAall.names", header=T) 
-Dend.colours <- as.character(Dend$colour) #pulls in the colours I set as an extra column (thru Excel) into WPAall.names to use for the heatmap later on
+Dend.colours <- as.character(Dend$colour) #pulls in the colours I set as an extra column (thru Excel) into WPAall.names to use for the heatmap later on ((this line may be redundant??))
+Dend.col <- read.table("WPAcol.names", header=T) #pulls in the colours for use in the heatmap
+Dend.col <- as.vector(Dend.col$colour) #chooses only to colors column of Dend.col and makes it into a vector for use in the heatmap
 
 heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=F, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap but without a key to match the colors to species?
 
-heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=Dend.colours$species, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #does the same but also adds species names - though these are cut off on the sides?
+Dend.col.species <- read.table("WPAcol.names", header=T) #pulls out just the species for use in the labels of the heatmap
+Dend.col.species <- Dend.col.species$species #pulls out just the species for use in the labels of the heatmap
+heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=Dend.col.species, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap with a key, which is being cut off??
 ```
 
