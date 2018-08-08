@@ -23,6 +23,15 @@ pwd Bombin@15
 vcf file: /srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/WPAall.s3.recode.vcf
 ```
 
+You can get a list of the individuals (in order) in the vcf file with this commnand: 
+```
+# linux. Run this on the server as bcftools is installed there already. 
+
+bcftools query -l [vcf.file.name]     ### the square brackets is a placeholder for whatever vcf file you want to look at. You can copy and paste these names out onto your computer. 
+```
+
+
+
 ## Population structure
 
 PCAdapt vignette:
@@ -30,3 +39,5 @@ PCAdapt vignette:
 ```
 https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html
 ```
+
+
