@@ -286,11 +286,17 @@ Total genotyping rate is 0.89126
 
 
 6030 loci
-Total genotyping rate is 0.736587
-```
+Total genotyping rate is 0.74
 
 ```
+pwd
+	alexjvr@fgcz-c-047:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018
+	
+WPA47.AdaptLoci.s4.recode.vcf
+```
 
+
+## Population Structure Analyses
 
 
 
