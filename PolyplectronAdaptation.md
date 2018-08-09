@@ -135,6 +135,8 @@ P.malacense (MalaysianPP) n=23
 
 2260 loci
 
+Total genotyping rate is 0.89126
+
 ```
 /srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/WPA47.s3.recode.vcf
 ```
