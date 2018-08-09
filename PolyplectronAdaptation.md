@@ -392,15 +392,12 @@ names(m2)<- c("c1","c2", "distance")
 library(gplots)
 shadesOfGrey <- colorRampPalette(c("grey100", "grey0"))
 Dend <- read.table("WPAall.names", header=T) 
-Dend.colours <- as.character(Dend$colour) #pulls in the colours I set as an extra column (thru Excel) into WPAall.names to use for the heatmap later on ((this line may be redundant??))
-Dend.col <- read.table("WPAcol.names", header=T) #pulls in the colours for use in the heatmap
+Dend.col <- read.table("WPAcol.names", header=T) #pulls in the colours for use in the heatmap, from a file that only has a column of species and their corresponding colours (made by making copy of WPA.names and then editing in Excel)
 Dend.col <- as.vector(Dend.col$colour) #chooses only to colors column of Dend.col and makes it into a vector for use in the heatmap
-
-heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=F, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap but without a key to match the colors to species?
 
 Dend.col.species <- read.table("WPAcol.names", header=T) #pulls out just the species for use in the labels of the heatmap
 Dend.col.species <- Dend.col.species$species #pulls out just the species for use in the labels of the heatmap
-heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=Dend.col.species, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap with a key, which is being cut off??
+heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=Dend.col.species, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap with a key, which is being cut off. No fix as of yet.
 ```
 To make a histogram of per locus FST
 ```
