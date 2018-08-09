@@ -467,3 +467,8 @@ alpha <- 0.1
 outliers <- which(padj < alpha)
 length(outliers)
 ```
+
+Getting the outlier locus names extracted from all of the locus names
+```
+locusnames <- read.table("locus_names", header=T)
+outlierloci <- locusnames[locusnames$number %in% outliers,]
