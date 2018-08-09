@@ -432,4 +432,38 @@ To get summaries of both populations attached to specific variables (for table w
 mountain <- summary(SEall.132.sep$P.imopinatum)
 malay <- summary(SEall.132.sep$P.malacense)
 ```
+Further outlier investigation (with WPA47.AdaptLoci.s4.recode.vcf)
+```
+library(pcadapt)
+setwd("C:/Users/Vilhelmiina/Desktop/WPA") 
+path_to_file <- "C:/Users/Vilhelmiina/Desktop/WPA"
+#vcf2 so as not to mix up with already-existing vcf in the session I was working in
+vcf2 <- read.pcadapt("WPA47.AdaptLoci.s4.recode.vcf", type="vcf")
+A <- pcadapt(input = vcf, K=12)
 
+#After plotting scree and score plots, assign K again as K=2
+A <- pcadapt(input = vcf, K=2)
+
+source("https://bioconductor.org/biocLite.R")
+biocLite("qvalue")
+library(qvalue)
+
+#qvalue analysis
+qval <- qvalue(A$pvalues)$qvalues
+alpha <- 0.1
+outliers <- which(qval < alpha)
+length(outliers)
+
+#B-H
+padj <- p.adjust(A$pvalues,method="BH")
+alpha <- 0.1
+outliers <- which(padj < alpha)
+length(outliers)
+
+#Bonferroni
+padj2 <- p.adjust(A$pvalues,method="bonferroni")
+#padj2 so as not to overwrite padj from earlier in the B-H analysis
+alpha <- 0.1
+outliers <- which(padj < alpha)
+length(outliers)
+```
