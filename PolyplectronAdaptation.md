@@ -472,3 +472,10 @@ Getting the outlier locus names extracted from all of the locus names
 ```
 locusnames <- read.table("locus_names", header=T)
 outlierloci <- locusnames[locusnames$number %in% outliers,]
+```
+
+Getting sequences from file in Linux cl
+```
+alexjvr@fgcz-c-047:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018$
+ grep -B 4 "|locus number|" WPAallMerged.loci
+ #finds the given locus number from the larger file, and shows 4 rows of sequences
