@@ -122,6 +122,24 @@ Run Time = 1.00 seconds
 
 ```
 
+3.4 Check for loci that deviate from HWE
+
+```
+vcftools --vcf 
+
+plink --file WPA47 --hardy   ##this has to be run on my laptop
+
+awk '$7>0.6 {print $0}' plink.hwe   ##look for columns where Observed Het exceeds 0.6
+
+awk '$7>0.5 {print $0}' plink.hwe ##look for columns where Observed Het exceeds 0.5
+
+CHR             SNP     TEST   A1   A2                 GENO   O(HET)   E(HET)            P 
+   0  locus_31539:49  ALL(NP)    C    T              4/21/16   0.5122   0.4572       0.7314
+
+```
+
+No need to filter for HWE. 
+
 
 ### Final Datasets
 
