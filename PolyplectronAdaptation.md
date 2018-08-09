@@ -238,9 +238,31 @@ awk '$7>0.5 {print $0}' plink.hwe |wc -l
       13
 ```
 
-Remove these 13 loci from the dataset. 
+Remove these 12 loci from the dataset. (first line is a header)
 
+```
+awk '$7>0.5 {print $0}' plink.hwe > locitoremove
 
+sed -i 's/:/\t/g' locitoremove
+
+vcftools --vcf WPA47.AdaptLoci.s3.recode.vcf --exclude-positions locitoremove --recode --recode-INFO-all --out WPA47.AdaptLoci.s4
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA47.AdaptLoci.s3.recode.vcf
+	--exclude-positions locitoremove
+	--recode-INFO-all
+	--out WPA47.AdaptLoci.s4
+	--recode
+
+After filtering, kept 47 out of 47 Individuals
+Outputting VCF file...
+After filtering, kept 6030 out of a possible 6042 Sites
+Run Time = 1.00 seconds
+
+```
 
 ### Final Datasets
 
@@ -263,7 +285,7 @@ Total genotyping rate is 0.89126
 #### 2. Data for outlier analyses
 
 
-
+6030 loci
 Total genotyping rate is 0.736587
 ```
 
