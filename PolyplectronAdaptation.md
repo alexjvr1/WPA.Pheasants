@@ -32,7 +32,7 @@ awk '$3=="MountainPP" {print $1} $3=="MalaysianPP" {print $1}' WPAall.names > in
 
 2. Subset vcf file to keep only these individuals
 ```
-vcftools --vcf *vcf --keep indivs.tokeep --recode --recode-INFO-all --out WPA50
+vcftools --vcf WPAallMerged.vcf --keep indivs.tokeep --recode --recode-INFO-all --out WPA47
 
 VCFtools - 0.1.15
 (C) Adam Auton and Anthony Marcketta 2009
@@ -54,36 +54,95 @@ Run Time = 16.00 seconds
 
 3. Filter SNPs
 
-3.1 
+3.1: filter loci genotyped in less than 80% of individuals 
 ```
+vcftools --vcf WPA47.recode.vcf --max-missing 0.8 --recode --recode-INFO-all --out WPA47.s1
 
-```
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
 
+Parameters as interpreted:
+	--vcf WPA47.recode.vcf
+	--recode-INFO-all
+	--max-missing 0.8
+	--out WPA47.s1
+	--recode
 
-3.1 
-```
-
-```
-
-
-3.1 
-```
-
-```
-
-
-3.1 
-```
-
-```
-
+After filtering, kept 47 out of 47 Individuals
+Outputting VCF file...
+After filtering, kept 36570 out of a possible 184264 Sites
+Run Time = 6.00 seconds
 
 
 ```
-vcf file: /srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/WPAall.s3.recode.vcf
+
+
+3.2: Filter all loci with minor allele frequency <5%
+```
+vcftools --vcf WPA47.s1.recode.vcf --maf 0.05 --recode --recode-INFO-all --out WPA47.s2
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA47.s1.recode.vcf
+	--recode-INFO-all
+	--maf 0.05
+	--out WPA47.s2
+	--recode
+
+After filtering, kept 47 out of 47 Individuals
+Outputting VCF file...
+After filtering, kept 14391 out of a possible 36570 Sites
+Run Time = 1.00 seconds
+
 ```
 
-This is data for 
+
+3.3: Keep only a single SNP per locus 
+```
+vcftools --vcf WPA47.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA47.s3
+
+vcftools --vcf WPA47.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA47.s3
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA47.s2.recode.vcf
+	--recode-INFO-all
+	--thin 300
+	--out WPA47.s3
+	--recode
+
+After filtering, kept 47 out of 47 Individuals
+Outputting VCF file...
+After filtering, kept 2260 out of a possible 14391 Sites
+Run Time = 1.00 seconds
+
+```
+
+
+### Final Datasets
+
+#### 1. For population Structure Analyses
+
+47 individuals
+
+P.imopinatum (MountainPP) n=24
+
+P.malacense (MalaysianPP) n=23
+
+2260 loci
+
+```
+/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/WPA47.s3.recode.vcf
+```
+
+#### 2. Data for outlier analyses
+```
+
+```
 
 
 
@@ -135,36 +194,30 @@ PCAdapt vignette:
 ```
 https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html
 ```
-### Code that works (08/08/2018)]
-
-1. Reading the data file into R and setting up variables 
+### Code that works (08/08/2018)
 ```
 library(pcadapt)
 setwd("C:/Users/Vilhelmiina/Desktop/WPA") 
 path_to_file <- "C:/Users/Vilhelmiina/Desktop/WPA"
 vcf <- read.pcadapt("WPAall.s3.recode.vcf", type="vcf")
-```
-
-2. Plotting a scree plot with the initial value of K
- ```
 X <- pcadapt(input = vcf, K=12)
 plot(X, option = "screeplot") # plots a scree plot
 ```
-3. Plotting a score plot
-```
+ ```
 WPA.names <- read.table("WPAall.names", header=T)
-plot(X, option = "scores", pop = WPA.names$species) 
+plot(X, option = "scores") 
 ```
-The score plot will confirm the "optimal" K
-
-4. Plotting a Q-Q plot and histogram to look for outliers
-``` 
+plots a score plot but without assigning colors/IDs to any of the clusters, which is no good
+```
+plot(X, option = "scores", pop =) 
+```
+  would add IDs to the clusters but using WPA.names for pop is giving an error, "Aesthetics must be either length 1 or the same as the data (69): colour, x, y"
+```
+plot(X, option = "scores", pop = WPA.names$species) 
 plot(X, option = "qqplot") # gives a Q-Q plot showing how well the observed p-values conform to the expected
 hist(X$pvalues, xlab = "p-values", main = NULL, breaks = 50, col = "purple") #creates a histogram of the p-values of X
 X <- pcadapt(input = vcf, K=5) #changes K to the optimum of the data set (in this case, 5)
 ```
-
-5. Plotting a FST heatmap to look at genetic distance between populations
 ```
 library(adegenet)
 library(hierfstat)
