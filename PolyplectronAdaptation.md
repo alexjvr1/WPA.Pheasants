@@ -1,16 +1,103 @@
 # Adaptation to environment in pheasants. 
 
-Questions
+
+### Questions
 
 1. What is the population structure of the peacock pheasants in SE Asia? 
 
 2. Can we resolve the demographic history of peacock pheasants in SE Asia? 
 
-3. Can we identify signals of adaptation to environment in P. malacense and P. impoinatum? 
+3. Can we identify signals of adaptation to environment (elevation) in P.malacense and P.imopinatum? 
 
 4. How do these loci fit in with what we know from other species? 
 
 
+## Data
+
+The data are on the fgcz47 server
+
+alexjvr@fgcz-c-047.uzh.ch
+
+pwd Bombin@15
+
+
+1. Select MalaysianPP and MountainPP 
+```
+pwd 
+ /srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018
+
+awk '$3=="MountainPP" {print $1} $3=="MalaysianPP" {print $1}' WPAall.names > indivs.tokeep
+
+```
+
+2. Subset vcf file to keep only these individuals
+```
+vcftools --vcf *vcf --keep indivs.tokeep --recode --recode-INFO-all --out WPA50
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPAallMerged.vcf
+	--keep indivs.tokeep
+	--recode-INFO-all
+	--out WPA50
+	--recode
+
+Keeping individuals in 'keep' list
+After filtering, kept 50 out of 69 Individuals
+Outputting VCF file...
+After filtering, kept 184264 out of a possible 184264 Sites
+Run Time = 16.00 seconds
+
+```
+
+3. Filter SNPs
+
+3.1 
+```
+
+```
+
+
+3.1 
+```
+
+```
+
+
+3.1 
+```
+
+```
+
+
+3.1 
+```
+
+```
+
+
+
+```
+vcf file: /srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/WPAall.s3.recode.vcf
+```
+
+This is data for 
+
+
+
+
+
+
+
+
+
+
+
+########################################################################################################################
+# Familiarisation with the data, R, and Linux 
+########################################################################################################################
 ## Data
 
 The data are on the fgcz47 server
