@@ -422,3 +422,9 @@ basic.stats(SEall.132)
 wc(SEall.132)
 ```
 
+To separate a genind file by population
+```
+SEall.132.sep <- seppop(SEall.132)
+SEall.132.sep
+```
+
