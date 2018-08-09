@@ -427,4 +427,9 @@ To separate a genind file by population
 SEall.132.sep <- seppop(SEall.132)
 SEall.132.sep
 ```
+To write tables of each population genind
+```
+write.table(SEall.132.sep$P.malacense, "Malaysian.txt", quote=F, col.names=F, row.names=F)
+write.table(SEall.132.sep$P.imopinatum, "Mountain.txt", quote=F, col.names=F, row.names=F)
+```
 
