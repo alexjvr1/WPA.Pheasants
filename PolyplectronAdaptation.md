@@ -32,7 +32,7 @@ awk '$3=="MountainPP" {print $1} $3=="MalaysianPP" {print $1}' WPAall.names > in
 
 2. Subset vcf file to keep only these individuals
 ```
-vcftools --vcf *vcf --keep indivs.tokeep --recode --recode-INFO-all --out WPA50
+vcftools --vcf WPAallMerged.vcf --keep indivs.tokeep --recode --recode-INFO-all --out WPA47
 
 VCFtools - 0.1.15
 (C) Adam Auton and Anthony Marcketta 2009
@@ -56,65 +56,69 @@ Run Time = 16.00 seconds
 
 3.1: filter loci genotyped in less than 80% of individuals 
 ```
-vcftools --vcf WPA50.recode.vcf --max-missing 0.8 --recode --recode-INFO-all --out WPA50.s1
+vcftools --vcf WPA47.recode.vcf --max-missing 0.8 --recode --recode-INFO-all --out WPA47.s1
 
 VCFtools - 0.1.15
 (C) Adam Auton and Anthony Marcketta 2009
 
 Parameters as interpreted:
-	--vcf WPA50.recode.vcf
+	--vcf WPA47.recode.vcf
 	--recode-INFO-all
 	--max-missing 0.8
-	--out WPA50.s1
+	--out WPA47.s1
 	--recode
 
-After filtering, kept 50 out of 50 Individuals
+After filtering, kept 47 out of 47 Individuals
 Outputting VCF file...
-After filtering, kept 38512 out of a possible 184264 Sites
+After filtering, kept 36570 out of a possible 184264 Sites
 Run Time = 6.00 seconds
+
+
 ```
 
 
 3.2: Filter all loci with minor allele frequency <5%
 ```
-vcftools --vcf WPA50.s1.recode.vcf --maf 0.05 --recode --recode-INFO-all --out WPA50.s2
+vcftools --vcf WPA47.s1.recode.vcf --maf 0.05 --recode --recode-INFO-all --out WPA47.s2
 
 VCFtools - 0.1.15
 (C) Adam Auton and Anthony Marcketta 2009
 
 Parameters as interpreted:
-	--vcf WPA50.s1.recode.vcf
+	--vcf WPA47.s1.recode.vcf
 	--recode-INFO-all
 	--maf 0.05
-	--out WPA50.s2
+	--out WPA47.s2
 	--recode
 
-After filtering, kept 50 out of 50 Individuals
+After filtering, kept 47 out of 47 Individuals
 Outputting VCF file...
-After filtering, kept 15095 out of a possible 38512 Sites
-Run Time = 2.00 seconds
+After filtering, kept 14391 out of a possible 36570 Sites
+Run Time = 1.00 seconds
 
 ```
 
 
 3.3: Keep only a single SNP per locus 
 ```
-vcftools --vcf WPA50.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA50.s3
+vcftools --vcf WPA47.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA47.s3
+
+vcftools --vcf WPA47.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA47.s3
 
 VCFtools - 0.1.15
 (C) Adam Auton and Anthony Marcketta 2009
 
 Parameters as interpreted:
-	--vcf WPA50.s2.recode.vcf
+	--vcf WPA47.s2.recode.vcf
 	--recode-INFO-all
 	--thin 300
-	--out WPA50.s3
+	--out WPA47.s3
 	--recode
 
-After filtering, kept 50 out of 50 Individuals
+After filtering, kept 47 out of 47 Individuals
 Outputting VCF file...
-After filtering, kept 2334 out of a possible 15095 Sites
-Run Time = 0.00 seconds
+After filtering, kept 2260 out of a possible 14391 Sites
+Run Time = 1.00 seconds
 
 ```
 
