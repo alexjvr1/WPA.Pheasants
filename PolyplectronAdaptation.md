@@ -400,4 +400,16 @@ Dend.col.species <- read.table("WPAcol.names", header=T) #pulls out just the spe
 Dend.col.species <- Dend.col.species$species #pulls out just the species for use in the labels of the heatmap
 heatmap.2(as.matrix(SEall.fst), trace="none", RowSideColors=Dend.col, ColSideColors=Dend.col, col=shadesOfGrey, labRow=Dend.col.species, labCol=F, key.ylab=NA, key.xlab=NA, key.title="Fst Colour Key", keysize=0.9, main="Pairwise FST 69 individuals, 2049 loci") #creates a heatmap with a key, which is being cut off??
 ```
+To make a histogram of per locus FST
+```
+library(adegenet)
+library(hierfstat)
+library(reshape)
+SEall.132 <- read.structure("WPA47_structure.stru")
+pop.factor <- as.factor(WPA.names$species)
+SEall.132@pop <- pop.factor #creates additional column in SEall.132 which is the species names
+hier.SEall <- genind2hierfstat(SEall.132)
+stats.SEall <- basic.stats(hier.SEall)
+stats.SEall.perlocus <- stats.SEall$perloc
+> hist(stats.SEall.perlocus$Fst, xlim=c(-0.2, 1.0), ylim=c(0,800), xlab="Per locus FST", breaks=50, main="Histogram of FST per locus for WPA47")
 
