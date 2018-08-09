@@ -54,36 +54,85 @@ Run Time = 16.00 seconds
 
 3. Filter SNPs
 
-3.1 
+3.1: filter loci genotyped in less than 80% of individuals 
 ```
+vcftools --vcf WPA50.recode.vcf --max-missing 0.8 --recode --recode-INFO-all --out WPA50.s1
 
-```
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
 
+Parameters as interpreted:
+	--vcf WPA50.recode.vcf
+	--recode-INFO-all
+	--max-missing 0.8
+	--out WPA50.s1
+	--recode
 
-3.1 
-```
-
-```
-
-
-3.1 
-```
-
-```
-
-
-3.1 
-```
-
+After filtering, kept 50 out of 50 Individuals
+Outputting VCF file...
+After filtering, kept 38512 out of a possible 184264 Sites
+Run Time = 6.00 seconds
 ```
 
 
+3.2: Filter all loci with minor allele frequency <5%
+```
+vcftools --vcf WPA50.s1.recode.vcf --maf 0.05 --recode --recode-INFO-all --out WPA50.s2
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA50.s1.recode.vcf
+	--recode-INFO-all
+	--maf 0.05
+	--out WPA50.s2
+	--recode
+
+After filtering, kept 50 out of 50 Individuals
+Outputting VCF file...
+After filtering, kept 15095 out of a possible 38512 Sites
+Run Time = 2.00 seconds
 
 ```
-vcf file: /srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall.Analyses/WPAall.s3.recode.vcf
+
+
+3.3: Keep only a single SNP per locus 
+```
+vcftools --vcf WPA50.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA50.s3
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA50.s2.recode.vcf
+	--recode-INFO-all
+	--thin 300
+	--out WPA50.s3
+	--recode
+
+After filtering, kept 50 out of 50 Individuals
+Outputting VCF file...
+After filtering, kept 2334 out of a possible 15095 Sites
+Run Time = 0.00 seconds
+
 ```
 
-This is data for 
+
+### Final Datasets
+
+1. For population Structure Analyses
+
+
+
+```
+/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/WPA50.s3.recode.vcf
+```
+
+2. Data for outlier analyses
+```
+
+```
 
 
 
