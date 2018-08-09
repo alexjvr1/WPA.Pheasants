@@ -371,6 +371,8 @@ plot(X, option = "qqplot") # gives a Q-Q plot showing how well the observed p-va
 hist(X$pvalues, xlab = "p-values", main = NULL, breaks = 50, col = "purple") #creates a histogram of the p-values of X
 X <- pcadapt(input = vcf, K=5) #changes K to the optimum of the data set (in this case, 5)
 ```
+
+To make a Fst heatmap
 ```
 library(adegenet)
 library(hierfstat)
@@ -412,4 +414,11 @@ hier.SEall <- genind2hierfstat(SEall.132)
 stats.SEall <- basic.stats(hier.SEall)
 stats.SEall.perlocus <- stats.SEall$perloc
 > hist(stats.SEall.perlocus$Fst, xlim=c(-0.2, 1.0), ylim=c(0,800), xlab="Per locus FST", breaks=50, main="Histogram of FST per locus for WPA47")
+```
+
+To get Fst and Fis values for an entire genind object
+```
+basic.stats(SEall.132)  
+wc(SEall.132)
+```
 
