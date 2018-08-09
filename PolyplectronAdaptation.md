@@ -125,7 +125,7 @@ Run Time = 1.00 seconds
 3.4 Check for loci that deviate from HWE
 
 ```
-vcftools --vcf 
+vcftools --vcf WPA47.s3.recode.vcf --plink --out WPA47
 
 plink --file WPA47 --hardy   ##this has to be run on my laptop
 
