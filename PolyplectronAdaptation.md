@@ -30,6 +30,9 @@ awk '$3=="MountainPP" {print $1} $3=="MalaysianPP" {print $1}' WPAall.names > in
 
 ```
 
+
+##### Dataset1: popGen
+
 2. Subset vcf file to keep only these individuals
 ```
 vcftools --vcf WPAallMerged.vcf --keep indivs.tokeep --recode --recode-INFO-all --out WPA47
@@ -141,6 +144,104 @@ CHR             SNP     TEST   A1   A2                 GENO   O(HET)   E(HET)   
 No need to filter for HWE. 
 
 
+##### Dataset2: 
+
+
+
+3. Filter SNPs
+
+3.1: filter loci genotyped in less than 80% of individuals 
+```
+vcftools --vcf WPA47.recode.vcf --max-missing 0.5 --recode --recode-INFO-all --out WPA47.AdaptLoci.s1
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA47.recode.vcf
+	--recode-INFO-all
+	--max-missing 0.5
+	--out WPA47.AdaptLoci.s1
+	--recode
+
+After filtering, kept 47 out of 47 Individuals
+Outputting VCF file...
+After filtering, kept 82182 out of a possible 184264 Sites
+Run Time = 9.00 seconds
+```
+
+
+3.2: Filter all loci with minor allele frequency <5%
+```
+vcftools --vcf WPA47.AdaptLoci.s1.recode.vcf --maf 0.05 --recode --recode-INFO-all --out WPA47.AdaptLoci.s2
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA47.AdaptLoci.s1.recode.vcf
+	--recode-INFO-all
+	--maf 0.05
+	--out WPA47.AdaptLoci.s2
+	--recode
+
+After filtering, kept 47 out of 47 Individuals
+Outputting VCF file...
+After filtering, kept 37675 out of a possible 82182 Sites
+Run Time = 4.00 seconds
+```
+
+
+3.3: Keep only a single SNP per locus 
+```
+vcftools --vcf WPA47.AdaptLoci.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA47.AdaptLoci.s3
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf WPA47.AdaptLoci.s2.recode.vcf
+	--recode-INFO-all
+	--thin 300
+	--out WPA47.AdaptLoci.s3
+	--recode
+
+After filtering, kept 47 out of 47 Individuals
+Outputting VCF file...
+After filtering, kept 6042 out of a possible 37675 Sites
+Run Time = 0.00 seconds
+```
+
+3.4 Check for loci that deviate from HWE
+
+```
+vcftools --vcf WPA47.AdaptLoci.s3.recode.vcf --plink --out WPA47.Adapt
+
+plink --file WPA47 --hardy   ##this has to be run on my laptop
+
+awk '$7>0.5 {print $0}' plink.hwe
+ CHR             SNP     TEST   A1   A2                 GENO   O(HET)   E(HET)            P 
+   0   locus_18517:1  ALL(NP)    G    A              7/18/10   0.5143   0.4963            1
+   0   locus_21387:8  ALL(NP)    T    C               3/13/8   0.5417   0.4783       0.6833
+   0  locus_13530:17  ALL(NP)    A    T               3/13/9     0.52   0.4712            1
+   0  locus_18963:31  ALL(NP)    G    A               2/15/7    0.625   0.4783       0.2168
+   0   locus_3083:37  ALL(NP)    T    C               1/15/8    0.625   0.4575       0.1753
+   0     locus_37:43  ALL(NP)    T    C              1/13/10   0.5417   0.4297       0.3567
+   0  locus_31539:49  ALL(NP)    C    T              4/21/16   0.5122   0.4572       0.7314
+   0  locus_14098:70  ALL(NP)    C    G              2/17/11   0.5667    0.455        0.255
+   0  locus_22623:87  ALL(NP)    A    G               3/13/8   0.5417   0.4783       0.6833
+   0 locus_15842:146  ALL(NP)    T    C              4/19/10   0.5758   0.4835         0.47
+   0  locus_1209:153  ALL(NP)    C    A              1/15/10   0.5769   0.4401       0.1956
+   0 locus_18440:190  ALL(NP)    T    C               2/14/8   0.5833   0.4688       0.3916
+
+awk '$7>0.5 {print $0}' plink.hwe |wc -l
+      13
+```
+
+Remove these 13 loci from the dataset. 
+
+
+
 ### Final Datasets
 
 #### 1. For population Structure Analyses
@@ -160,6 +261,10 @@ Total genotyping rate is 0.89126
 ```
 
 #### 2. Data for outlier analyses
+
+
+
+Total genotyping rate is 0.736587
 ```
 
 ```
