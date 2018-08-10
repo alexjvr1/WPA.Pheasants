@@ -441,7 +441,7 @@ vcf2 <- read.pcadapt("WPA47.AdaptLoci.s4.recode.vcf", type="vcf")
 A <- pcadapt(input = vcf2, K=12)
 
 #After plotting scree and score plots as before, assign K again as K=2
-A <- pcadapt(input = vcf, K=2)
+A <- pcadapt(input = vcf2, K=2)
 
 source("https://bioconductor.org/biocLite.R")
 biocLite("qvalue")
@@ -471,10 +471,11 @@ Getting the outlier locus names extracted from all of the locus names
 ```
 locusnames <- read.table("locus_names", header=T)
 outlierloci <- locusnames[locusnames$number %in% outliers,]
+write.table(outlierloci, "outlierloci", row.names=F, col.names=F, quote=F
 ```
 
 Getting sequences from file in Linux cl
 ```
-alexjvr@fgcz-c-047:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018$
- grep -B 4 "|locus number|" WPAallMerged.loci
- #finds the given locus number from the larger file, and shows 4 rows of sequences
+ssh alexjvr@fgcz-c-047:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018$
+grep -B 4 "|locus number|" WPAallMerged.loci
+#finds the given locus number from the larger file, and shows 4 rows of sequences
