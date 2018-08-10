@@ -15,7 +15,7 @@ wget -r ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/002/315/GCA_000002315.5_G
 ```
 
 
-Test if the pheasant samples can be mapped to the genome
+### Test if the pheasant samples can be mapped to the genome
 
 1. rename the sequences in the reverse reads. These were demultiplexed with process_radtags, so the fwd and rev reads have different endings to their names (_1 and _2) 
 ```
@@ -62,3 +62,7 @@ gunzip GCA_000002315.5_GRCg6a_genomic.fna.gz
 2796 + 0 with mate mapped to a different chr (mapQ>=5)
 
 ```
+
+### Map all sequences to genome and call SNPs
+
+
