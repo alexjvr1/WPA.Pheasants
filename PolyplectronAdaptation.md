@@ -348,28 +348,30 @@ PCAdapt vignette:
 https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html
 ```
 ### Code that works (08/08/2018)
+
+Initial reading-in of files into RStudio
 ```
 library(pcadapt)
 setwd("C:/Users/Vilhelmiina/Desktop/WPA") 
 path_to_file <- "C:/Users/Vilhelmiina/Desktop/WPA"
 vcf <- read.pcadapt("WPAall.s3.recode.vcf", type="vcf")
-X <- pcadapt(input = vcf, K=12)
+X <- pcadapt(input = vcf, K=12) 
+#At this point, K can be a larger number 
+```
+
+Plotting scree, score (PCA), Q-Q plots
+```
 plot(X, option = "screeplot") # plots a scree plot
-```
- ```
+
 WPA.names <- read.table("WPAall.names", header=T)
-plot(X, option = "scores") 
-```
-plots a score plot but without assigning colors/IDs to any of the clusters, which is no good
-```
-plot(X, option = "scores", pop =) 
-```
-  would add IDs to the clusters but using WPA.names for pop is giving an error, "Aesthetics must be either length 1 or the same as the data (69): colour, x, y"
-```
 plot(X, option = "scores", pop = WPA.names$species) 
 plot(X, option = "qqplot") # gives a Q-Q plot showing how well the observed p-values conform to the expected
+```
+Plotting a histogram of the p-values of X
+```
 hist(X$pvalues, xlab = "p-values", main = NULL, breaks = 50, col = "purple") #creates a histogram of the p-values of X
-X <- pcadapt(input = vcf, K=5) #changes K to the optimum of the data set (in this case, 5)
+
+X <- pcadapt(input = vcf, K=5) #changes K to the optimum of the data set (in this case, 5) for further analysis - can also redraw the score plot after this step
 ```
 
 To make a Fst heatmap
@@ -436,9 +438,9 @@ setwd("C:/Users/Vilhelmiina/Desktop/WPA")
 path_to_file <- "C:/Users/Vilhelmiina/Desktop/WPA"
 #vcf2 so as not to mix up with already-existing vcf in the session I was working in
 vcf2 <- read.pcadapt("WPA47.AdaptLoci.s4.recode.vcf", type="vcf")
-A <- pcadapt(input = vcf, K=12)
+A <- pcadapt(input = vcf2, K=12)
 
-#After plotting scree and score plots, assign K again as K=2
+#After plotting scree and score plots as before, assign K again as K=2
 A <- pcadapt(input = vcf, K=2)
 
 source("https://bioconductor.org/biocLite.R")
