@@ -471,7 +471,7 @@ Getting the outlier locus names extracted from all of the locus names
 ```
 locusnames <- read.table("locus_names", header=T)
 outlierloci <- locusnames[locusnames$number %in% outliers,]
-write.table(outlierloci, "outlierloci", row.names=F, col.names=F, quote=F
+write.table(outlierloci, "outlierloci", row.names=F, col.names=F, quote=F)
 ```
 
 Getting sequences from file in Linux cl
@@ -496,11 +496,19 @@ scp alexjvr@fgcz-c-047.uzh.ch:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.Adaptat
 
 Working on above files in R
 ```
+#reading relatedness files into R
 relatedness <- read.table("WPA47.Vrel.relatedness", header=T)
 relatedness2 <- read.table("WPA47.Vrel.relatedness2", header=T)
 
+#Reading names file into R and subsetting into Malaysian and Mountain only
 WPA.names <- read.table("WPAall.names", header=T)
 malaysian.names <- subset(WPA.names, common.name == "MalaysianPP")
 mountain.names <- subset(WPA.names, common.name == "MountainPP")
 
+#Filtering relatedness2 files into Malaysian and Mountain separately (could not do it n Linux)
+mountain.relatedness2 <- relatedness2[relatedness2$INDV1 %in% mountain.names$indiv & relatedness2$INDV2 %in% mountain.names$indiv,]
+malaysian.relatedness2 <- relatedness2[relatedness2$INDV1 %in% malaysian.names$indiv & relatedness2$INDV2 %in% malaysian.names$indiv,]
+
+write.csv(mountain.relatedness2, "mountainrelatedness2.csv")
+write.csv(malaysian.relatedness2, "malaysianrelatedness2.csv")
 ```
