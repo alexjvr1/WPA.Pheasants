@@ -512,3 +512,7 @@ malaysian.relatedness2 <- relatedness2[relatedness2$INDV1 %in% malaysian.names$i
 write.csv(mountain.relatedness2, "mountainrelatedness2.csv")
 write.csv(malaysian.relatedness2, "malaysianrelatedness2.csv")
 ```
+
+Interpreting relatedness2 data - Relatedness 'Phi' a.k.a. kinship coefficcient
+
+"...expected ranges of kinship coefficients (‘Phi’) are >0.354 for duplicate samples/monozygotic twins, [0.177–0.354] for 1st degree relatives, [0.0884–0.177] for 2nd degree relative, [0.0442–0.0884] for 3rd degree relatives and <0.0442 for unrelated samples." (Harr et al., 2016 doi: 10.1038/sdata.2016.75.)
