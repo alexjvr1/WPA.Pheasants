@@ -476,6 +476,26 @@ write.table(outlierloci, "outlierloci", row.names=F, col.names=F, quote=F
 
 Getting sequences from file in Linux cl
 ```
-ssh alexjvr@fgcz-c-047:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018$
+ssh alexjvr@fgcz-c-047.uzh.ch:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018$
 grep -B 4 "|locus number|" WPAallMerged.loci
 #finds the given locus number from the larger file, and shows 4 rows of sequences
+```
+
+Calculating relatedness in bash
+```
+ssh alexjvr@fgcz-c-047.uzh.ch:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018
+vcftools
+vcftools --vcf WPA47.AdaptLoci.s3.recode.vcf --out WPA47.Vrel --relatedness
+vcftools --vcf WPA47.AdaptLoci.s3.recode.vcf --out WPA47.Vrel --relatedness2
+
+# then log out to download newly created files (make sure you're in the intended directory first)
+logout
+scp alexjvr@fgcz-c-047.uzh.ch:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/WPA47.Vrel.relatedness
+scp alexjvr@fgcz-c-047.uzh.ch:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/WPA47.Vrel.relatedness2
+```
+
+Working on above files in R
+```
+relatedness <- read.table("WPA47.Vrel.relatedness", header=T)
+relatedness2 <- read.table("WPA47.Vrel.relatedness2", header=T)
+```
