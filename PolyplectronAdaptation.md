@@ -557,5 +557,48 @@ vcftools --vcf WPAallMerged.vcf --remove toremove --recode --recode-INFO-all --o
 ```
 
 
+Filter for missingness, MAF, and 1 SNP per locus. 
+```
+vcftools --vcf WPAall.Data1.recode.vcf --max-missing 0.8 --recode --recode-INFO-all --out WPA63.Data1
+vcftools --vcf WPA63.Data1.recode.vcf --maf 0.05 --recode --recode-INFO-all --out WPA63.Data1.s2
+vcftools --vcf WPA63.Data1.s2.recode.vcf --thin 300 --recode --recode-INFO-all --out WPA63.Data1.s3 
+```
 
+copy to local computer to split genind object
+```
+scp fgcz47:/srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/DataForWPAreport/WPA63.Data1.s3.recode* .
+
+```
+
+Make sure the names info is correct
+
+```
+bcftools query -l WPA63.Data1.s3.recode* > names1
+
+awk '{print $1}' WPAall.names > WPAall.names.1
+
+diff names1 WPAall.names.1
+
+0a1
+> indiv
+30a32,34
+> PHE113.control1
+> PHE113.control2
+> PHE113.control3
+51a56,58
+> PHE150a
+> PHE150b
+> PHE150c
+63a71
+
+```
+
+remove PHE113 and PHE150 duplicates from WPAall.names
+```
+cp WPAall.names WPA63.names
+
+sed -i 's/^PHE113.\//g' WPA63.names
+
+sed -i 's/^PHE150.\//g' WPA63.names
+```
 
