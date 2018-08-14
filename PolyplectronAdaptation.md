@@ -516,6 +516,15 @@ write.csv(malaysian.relatedness2, "malaysianrelatedness2.csv")
 library(ggplot2)
 qplot(malaysian.relatedness2$RELATEDNESS_PHI, geom="histogram", binwidth=.01, main="Frequency distribution of Malaysian relatedness2", xlab="Relatedness2 coefficient", ylab="Frequency", fill=I("white"), col=I("black"), alpha=I(1), xlim=c(-0.5, 0.51), ylim=c(0, 40))
 qplot(mountain.relatedness2$RELATEDNESS_PHI, geom="histogram", binwidth=.01, main="Frequency distribution of Mountain relatedness2", xlab="Relatedness2 coefficient", ylab="Frequency", fill=I("white"), col=I("black"), alpha=I(1), xlim=c(-0.5, 0.51), ylim=c(0, 40))
+
+#To draw ggplot histograms, which allow for more customization
+ggplot(data=mountain.relatedness2, aes(mountain.relatedness2$RELATEDNESS_PHI)) + 
++     geom_histogram(binwidth=.01, col="black", fill="white", alpha = 1) + 
++     labs(title="Frequency distribution of Mountain relatedness2", x="Relatedness2 coefficient", y="Frequency") + xlim(c(-0.5, 0.51)) + ylim(c(0,40)) + scale_x_continuous(breaks = scales::pretty_breaks(n = 10), limits=c(-0.5, 0.51))
+
+ggplot(data=malaysian.relatedness2, aes(malaysian.relatedness2$RELATEDNESS_PHI)) + 
++     geom_histogram(binwidth=.01, col="black", fill="white", alpha = 1) + 
++     labs(title="Frequency distribution of Malaysian relatedness2", x="Relatedness2 coefficient", y="Frequency") + xlim(c(-0.5, 0.51)) + ylim(c(0,40)) + scale_x_continuous(breaks = scales::pretty_breaks(n = 10), limits=c(-0.5, 0.51))
 ```
 
 Interpreting relatedness2 data - Relatedness 'Phi' a.k.a. kinship coefficcient
