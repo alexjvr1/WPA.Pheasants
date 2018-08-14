@@ -539,3 +539,23 @@ ggplot(data=malaysian.relatedness2, aes(malaysian.relatedness2$RELATEDNESS_PHI))
 Interpreting relatedness2 data - Relatedness 'Phi' a.k.a. kinship coefficcient
 
 "...expected ranges of kinship coefficients (‘Phi’) are >0.354 for duplicate samples/monozygotic twins, [0.177–0.354] for 1st degree relatives, [0.0884–0.177] for 2nd degree relative, [0.0442–0.0884] for 3rd degree relatives and <0.0442 for unrelated samples." (Harr et al., 2016 doi: 10.1038/sdata.2016.75.)
+
+
+
+## Fis and Relatedness for all WPA data
+
+Dataset that includes all individuals and species for relatedness test. 
+
+I'm removing all control samples (i.e. duplicates of PHE113 and PHE150). 
+
+```
+awk '$1~/PHE150/ {print $1}' WPAall.names > toremove
+
+awk '$1~/PHE113/ {print $1}' WPAall.names >> toremove
+
+vcftools --vcf WPAallMerged.vcf --remove toremove --recode --recode-INFO-all --out DataForWPAreport/WPAall.Data1
+```
+
+
+
+
