@@ -514,8 +514,8 @@ write.csv(malaysian.relatedness2, "malaysianrelatedness2.csv")
 
 #To draw a historgram of the frequency distribution of the relatedness coefficients for Malaysian and Mountain populations
 library(ggplot2)
-qplot(malaysian.relatedness2$RELATEDNESS_PHI, geom="histogram", binwidth=.01, main="Frequency distribution of Malaysian relatedness2", xlab="Relatedness2 coefficient", fill=I("white"), col=I("black"), alpha=I(1), xlim=c(-0.5, 0.51), ylim=c(0, 40))
-qplot(mountain.relatedness2$RELATEDNESS_PHI, geom="histogram", binwidth=.01, main="Frequency distribution of Mountain relatedness2", xlab="Relatedness2 coefficient", fill=I("white"), col=I("black"), alpha=I(1), xlim=c(-0.5, 0.51), ylim=c(0, 40))
+qplot(malaysian.relatedness2$RELATEDNESS_PHI, geom="histogram", binwidth=.01, main="Frequency distribution of Malaysian relatedness2", xlab="Relatedness2 coefficient", ylab="Frequency", fill=I("white"), col=I("black"), alpha=I(1), xlim=c(-0.5, 0.51), ylim=c(0, 40))
+qplot(mountain.relatedness2$RELATEDNESS_PHI, geom="histogram", binwidth=.01, main="Frequency distribution of Mountain relatedness2", xlab="Relatedness2 coefficient", ylab="Frequency", fill=I("white"), col=I("black"), alpha=I(1), xlim=c(-0.5, 0.51), ylim=c(0, 40))
 ```
 
 Interpreting relatedness2 data - Relatedness 'Phi' a.k.a. kinship coefficcient
