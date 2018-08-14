@@ -525,6 +525,15 @@ ggplot(data=mountain.relatedness2, aes(mountain.relatedness2$RELATEDNESS_PHI)) +
 ggplot(data=malaysian.relatedness2, aes(malaysian.relatedness2$RELATEDNESS_PHI)) + 
 +     geom_histogram(binwidth=.01, col="black", fill="white", alpha = 1) + 
 +     labs(title="Frequency distribution of Malaysian relatedness2", x="Relatedness2 coefficient", y="Frequency") + xlim(c(-0.5, 0.51)) + ylim(c(0,40)) + scale_x_continuous(breaks = scales::pretty_breaks(n = 10), limits=c(-0.5, 0.51))
+
+#Same ggplot histograms but with bin colours adjusted to fit the relatedness2 ranges
+ggplot(data=mountain.relatedness2, aes(mountain.relatedness2$RELATEDNESS_PHI, fill=mountain.relatedness2$RELATEDNESS_PHI)) + 
++     geom_histogram(aes(fill=cut(..x.., breaks=c(-0.5, 0.0442, 0.0884, 0.177, 0.354))),binwidth=.01, col="black", alpha = 1, show.legend = FALSE) + 
++     labs(title="Frequency distribution of Mountain relatedness2", x="Relatedness2 coefficient", y="Frequency") + xlim(c(-0.5, 0.51)) + ylim(c(0,40)) + scale_x_continuous(breaks = scales::pretty_breaks(n = 10), limits=c(-0.5, 0.51))
+
+ggplot(data=malaysian.relatedness2, aes(malaysian.relatedness2$RELATEDNESS_PHI, fill=malaysian.relatedness2$RELATEDNESS_PHI)) + 
++     geom_histogram(aes(fill=cut(..x.., breaks=c(-0.5, 0.0442, 0.0884, 0.177, 0.354))),binwidth=.01, col="black", alpha = 1, show.legend = FALSE) + 
++     labs(title="Frequency distribution of Malaysian relatedness2", x="Relatedness2 coefficient", y="Frequency") + xlim(c(-0.5, 0.51)) + ylim(c(0,40)) + scale_x_continuous(breaks = scales::pretty_breaks(n = 10), limits=c(-0.5, 0.51))
 ```
 
 Interpreting relatedness2 data - Relatedness 'Phi' a.k.a. kinship coefficcient
