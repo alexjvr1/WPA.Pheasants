@@ -607,6 +607,45 @@ And remove the two headers
 
 Now convert to structure format with WPA63names.forspid as the popfile. 
 
+In R
+```
+WPA63 <- read.structure("WPA63.str")  ## 2205 loci, 63 genotypes, species names in col 2
+pops7 <- seppop(WPA63)  ## separate by species into 7 Genind files
+pops7 ## look at genind object
+
+WPA63.stats <- basic.stats(genind2hierfstat(WPA63, pop=WPA63@pop), diploid=T)  ## calculate stats per species
+summary(WPA63.stats)  ## look at some of the data
+summary(WPA63.stats$overall)
+summary(WPA63.stats$pop.freq)  ## allele frequency per population. 
+
+##plot frequency of per locus Fis for each population
+
+par(mfrow=c(4,3))  ## set the frame to plot multiple graphs in one figure. For ggplot there's a function "multiplot" that someone wrote. 
+hist(WPA63.stats$Fis[,1], main="Fis for P.bicalcaratum")
+hist(WPA63.stats$Fis[,2], main="Fis for P.chalcurum")
+hist(WPA63.stats$Fis[,3], main="Fis for P.germaini")
+hist(WPA63.stats$Fis[,4], main="Fis for P.malacense")
+hist(WPA63.stats$Fis[,5], main="Fis for P.bicalcaratum")
+hist(WPA63.stats$Fis[,6], main="Fis for P.napoleonis")
+hist(WPA63.stats$Fis[,7], main="Fis for P.scheiermacheri")
+```
+
+To add a figure you can upload the figure in the Issue tab (use the project WPA.Adapt.Figs.md). Once you've uploaded the figure you'll see an http:... address for the figure. Use that to link to your figure. (look at the syntax I used here when you're in edit mode). 
+
+![alt_txt][Fis_7pops]
+
+[Fis_7pops]:https://user-images.githubusercontent.com/12142475/44118504-47458208-a00e-11e8-9369-2b9993ed2aa9.png
+
+
+### Population genetics
+
+This might be a good place to talk a bit about some pop gen theory so that you understand what we're trying to calculate. 
+
+#### HWE
+
+#### F-statistics
+
+
 
 
 
