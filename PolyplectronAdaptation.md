@@ -498,4 +498,9 @@ Working on above files in R
 ```
 relatedness <- read.table("WPA47.Vrel.relatedness", header=T)
 relatedness2 <- read.table("WPA47.Vrel.relatedness2", header=T)
+
+WPA.names <- read.table("WPAall.names", header=T)
+malaysian.names <- subset(WPA.names, common.name == "MalaysianPP")
+mountain.names <- subset(WPA.names, common.name == "MountainPP")
+
 ```
