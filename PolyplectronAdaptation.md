@@ -597,8 +597,16 @@ remove PHE113 and PHE150 duplicates from WPAall.names
 ```
 cp WPAall.names WPA63.names
 
-sed -i 's/^PHE113.\//g' WPA63.names
+sed -i '' '/PHE113\./d' WPA63.names 
 
-sed -i 's/^PHE150.\//g' WPA63.names
+sed -i '' '/PHE150[abc]/d' WPA63.names
+
+awk '{print $1 "\t" $2}' WPAall.names > WPA63names.forspid
 ```
+And remove the two headers
+
+Now convert to structure format with WPA63names.forspid as the popfile. 
+
+
+
 
