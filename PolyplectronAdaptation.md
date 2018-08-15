@@ -653,6 +653,34 @@ relatedness2.s2 <- relatedness2.s2[order(relatedness2.s2$RELATEDNESS_PHI),]
 write.csv(relatedness2.s2, "relatedness2_sorted.csv")
 ```
 
+Mapping to chicken genome in Linux
+```
+sed -i 's/_2$/_1/g' /srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/Vilhelmiina/PHE080_1.1.fq
+sed -i 's/_2$/_1/g' /srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/Vilhelmiina/PHE080_1.2.fq
+
+/usr/local/ngseq/packages/Aligner/BWA/0.7.15/bin/bwa mem -t 10 /srv/kenlab/alexjvr_p1795/WPA/MaptoGallusgallus/GCA_000002315.5_GRCg6a/GCA_000002315.5_GRCg6a_genomic.fna.gz /srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/Vilhelmiina/PHE080_1.1.fq /srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoElevation/Data_Aug2018/Vilhelmiina/PHE080_1.2.fq > aln-pe.PHE080.sam
+
+/usr/local/ngseq/packages/Tools/samtools/1.5/bin/samtools import /srv/kenlab/alexjvr_p1795/WPA/MaptoGallusgallus/GCA_000002315.5_GRCg6a/GCA_000002315.5_GRCg6a_genomic.fna.fai aln-pe.PHE080.sam aln-pe.PHE080.bam
+
+/usr/local/ngseq/packages/Tools/samtools/1.5/bin/samtools sort aln-pe.PHE080.bam -o PHE080.bam.sorted
+
+/usr/local/ngseq/packages/Tools/samtools/1.5/bin/samtools flagstat PHE080.bam.sort
+ed
+829795 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 secondary
+10567 + 0 supplementary
+0 + 0 duplicates
+811661 + 0 mapped (97.81% : N/A)
+819228 + 0 paired in sequencing
+409614 + 0 read1
+409614 + 0 read2
+777394 + 0 properly paired (94.89% : N/A)
+796512 + 0 with itself and mate mapped
+4582 + 0 singletons (0.56% : N/A)
+14894 + 0 with mate mapped to a different chr
+8930 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+
 ## Fis and Relatedness for all WPA data
 
 Dataset that includes all individuals and species for relatedness test. 
