@@ -598,9 +598,60 @@ relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE156'] <- 'P.mal
 relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE157'] <- 'P.malacense')
 relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE160'] <- 'P.malacense')
 
-#Then for SPECIES2 column
+#Then for SPECIES2 column for Mountain
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE079'] <- 'P.inopinatum') 
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE088'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE089'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE090'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE091'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE092'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE116'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE135'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE136'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE137'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE138'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE141'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE142'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE143'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE144'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE149'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE150'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE153'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE154'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE155'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE158'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE159'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE161'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE162'] <- 'P.inopinatum')
 
+#And the same for Malaysian
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE080'] <- 'P.malacense') 
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE081'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE082'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE083'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE084'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE085'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE086'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE087'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE100'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE112'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE126'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE127'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE133'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE134'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE139'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE140'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE145'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE146'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE147'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE148'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE156'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE157'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES2[INDV2 == 'PHE160'] <- 'P.malacense')
 
+relatedness2.s2 <- relatedness2.s2[order(relatedness2.s2$RELATEDNESS_PHI),]
+write.csv(relatedness2.s2, "relatedness2_sorted.csv")
+```
 
 ## Fis and Relatedness for all WPA data
 
