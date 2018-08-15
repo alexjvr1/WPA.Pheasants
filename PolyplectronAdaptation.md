@@ -553,6 +553,8 @@ awk '$1~/PHE150/ {print $1}' WPAall.names > toremove
 
 awk '$1~/PHE113/ {print $1}' WPAall.names >> toremove
 
+##manually remove PHE150 and PHE113 (without .1-3 or a-c) from the toremove file using nano
+
 vcftools --vcf WPAallMerged.vcf --remove toremove --recode --recode-INFO-all --out DataForWPAreport/WPAall.Data1
 ```
 
