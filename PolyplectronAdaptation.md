@@ -540,6 +540,66 @@ Interpreting relatedness2 data - Relatedness 'Phi' a.k.a. kinship coefficcient
 
 "...expected ranges of kinship coefficients (‘Phi’) are >0.354 for duplicate samples/monozygotic twins, [0.177–0.354] for 1st degree relatives, [0.0884–0.177] for 2nd degree relative, [0.0442–0.0884] for 3rd degree relatives and <0.0442 for unrelated samples." (Harr et al., 2016 doi: 10.1038/sdata.2016.75.)
 
+Making relatedness tables
+```
+relatedness2.s <- relatedness2[order(relatedness2$RELATEDNESS_PHI),] #orders the relatedness table by the coefficient (ascending) 
+relatedness2.s2 <- subset(relatedness2, relatedness2$RELATEDNESS_PHI > 0.0442, stringsasFactors=F) #pulls out only the coefficients that are above the "unrelated" threshold of 0.0442
+relatedness2.s2$SPECIES1 <- "SPECIES1"
+relatedness2.s2$SPECIES2 <- "SPECIES2" #add two columns to give the species of indv1 and indv2
+
+#make SPECIES1 column reflect the value in INDV1 (I'm sure there's a much shorter way to do this, but I couldn't find it. Tried OR and & and ,)
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE079'] <- 'P.inopinatum') 
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE088'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE089'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE090'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE091'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE092'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE116'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE135'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE136'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE137'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE138'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE141'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE142'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE143'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE144'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE149'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE150'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE153'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE154'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE155'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE158'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE159'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE161'] <- 'P.inopinatum')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE162'] <- 'P.inopinatum')
+
+#Do the same for P.malacense
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE080'] <- 'P.malacense') 
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE081'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE082'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE083'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE084'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE085'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE086'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE087'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE100'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE112'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE126'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE127'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE133'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE134'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE139'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE140'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE145'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE146'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE147'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE148'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE156'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE157'] <- 'P.malacense')
+relatedness2.s2 <- within(relatedness2.s2, SPECIES1[INDV1 == 'PHE160'] <- 'P.malacense')
+
+#Then for SPECIES2 column
+
 
 
 ## Fis and Relatedness for all WPA data
