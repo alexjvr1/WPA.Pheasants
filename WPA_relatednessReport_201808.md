@@ -378,7 +378,7 @@ relatedness <- within(relatedness, WPA2[INDV2 == 'PHE108'] <- 'Blue.ring')
 
 
 
-
+write.csv(relatedness, "WPA63.relatedness.info.csv")
 
 ```
 
