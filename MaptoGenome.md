@@ -65,4 +65,8 @@ gunzip GCA_000002315.5_GRCg6a_genomic.fna.gz
 
 ### Map all sequences to genome and call SNPs
 
+Since all individuals were sequenced across 3 lanes, data was merged and trimmed using pyRAD. 
+These data can be found here: /srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall_20180124/WPAallMerged_edits/*trimmed_*fastq.gz
+
+
 
