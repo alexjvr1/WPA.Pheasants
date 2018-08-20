@@ -290,3 +290,15 @@ Chosen clustering threshold: 93%
 ![alt_txt][WPA.stats]
 
 [WPA.stats]:https://user-images.githubusercontent.com/12142475/42228491-054e6f52-7edc-11e8-8d69-b24d5ca083d9.png
+
+
+# All Samples
+
+The final dataset should include 63 unique individuals. 
+
+These data have been merged using ipyrad. The demultiplexed reads with adapters removed can be found here: 
+
+/srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall_20180124/WPAallMerged_edits
+
+These samples have been renamed for the ipyrad input. Thus I think each file is represented twice. ie. ls sample1_*R2* gives two files of the same size
+
