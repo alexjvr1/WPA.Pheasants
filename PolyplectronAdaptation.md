@@ -655,8 +655,9 @@ sed -i 's/_2$/_1/g' /srv/kenlab/alexjvr_p1795/WPA/MS_Pheasants.AdaptationtoEleva
 
 /usr/local/ngseq/packages/Tools/samtools/1.5/bin/samtools sort aln-pe.PHE080.bam -o PHE080.bam.sorted
 
-/usr/local/ngseq/packages/Tools/samtools/1.5/bin/samtools flagstat PHE080.bam.sort
-ed
+/usr/local/ngseq/packages/Tools/samtools/1.5/bin/samtools flagstat PHE080.bam.sorted
+
+#returns data set out something like this...
 829795 + 0 in total (QC-passed reads + QC-failed reads)
 0 + 0 secondary
 10567 + 0 supplementary
