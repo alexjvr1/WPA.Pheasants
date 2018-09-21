@@ -90,3 +90,5 @@ Once the fastq files are in order, they can be mapped to the genome. We will use
 
 But we first have to get the genome and do a little pre-processing. 
 
+
+
