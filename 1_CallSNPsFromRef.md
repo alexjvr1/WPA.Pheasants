@@ -90,5 +90,17 @@ Once the fastq files are in order, they can be mapped to the genome. We will use
 
 But we first have to get the genome and do a little pre-processing. 
 
+#### 2.1 Download the reference genome to the current working directory on BlueCrystal
 
+First find the latest version of the genome on Ensembl or [NCBI](https://www.ncbi.nlm.nih.gov/assembly/GCF_000002315.5)
+The address bar shows the address of this assembly where the name is broken into triplets: ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/315/
+
+Use wget to copy the entire folder to bluecp3. Or copy just the fasta file of the full genome: 
+```
+wget --recursive ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/315/GCF_000002315.5_GRCg6a/ .
+
+OR
+
+wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/315/GCF_000002315.5_GRCg6a/*genomic.fna.gz .
+```
 
