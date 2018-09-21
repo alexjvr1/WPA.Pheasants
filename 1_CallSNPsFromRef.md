@@ -76,5 +76,17 @@ This was done [previously](https://github.com/alexjvr1/WPA.Pheasants/blob/44e167
 
 At this point samples that were sequenced in multiple libraries can be combined (using cat). 
 
-### 2. 
+
+Demultiplexed and cleaned data can be found here: 
+
+alexjvr@fgcz-c-047:/srv/kenlab/alexjvr_p1795/WPA/Jan2018/WPAall_20180124/WPAallMerged_edits/*trimmed*_.gastq.gz
+
+bluecp3:/
+
+
+### 2. Map to Genome
+
+Once the fastq files are in order, they can be mapped to the genome. We will use BWA-mem for this, since this is the optimal aligner for short sequence reads. Several different aligners can be compared using a program called [Teaser](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-015-0803-1): get the software [here](https://github.com/Cibiv/Teaser). 
+
+But we first have to get the genome and do a little pre-processing. 
 
