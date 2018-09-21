@@ -3,7 +3,7 @@
 Pipeline from raw data to SNP calling using a reference genome (Here Gallus gallus) 
 
 
-#### 1. Demultiplex & trim (& combine duplicated samples)
+#### 1. Demultiplex & remove adapter
 
 #### 2. Map to Genome (BWA-mem)
 
@@ -72,4 +72,9 @@ Raw reads are received in fastq.gz format from genomics facilities. In this case
 
 For demultiplexing I usually use process_radtags from the [STACKS](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php) package. This is not available on BlueCrystal, but it I still have access to the Functional Genomics Center server, so I will demultiplex the samples there. 
 
+This was done [previously](https://github.com/alexjvr1/WPA.Pheasants/blob/44e16715f8d74f7b479c7c9fdf3bf0bca015857f/pyRADopt.Pheasants.Nov2017.md) 
+
+At this point samples that were sequenced in multiple libraries can be combined (using cat). 
+
+### 2. 
 
