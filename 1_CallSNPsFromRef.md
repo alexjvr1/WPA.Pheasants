@@ -104,3 +104,20 @@ OR
 wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/315/GCF_000002315.5_GRCg6a/*genomic.fna.gz .
 ```
 
+
+#### 2.2 Index and sort the genome
+
+pwd: /panfs/panasas01/bisc/aj18951/WPA
+```
+module avail
+module load apps/bwa-0.7.15 
+module load apps/samtools-1.8  
+
+gunzip 
+```
+
+Genome needs to be indexed by both samtools and bwa
+```
+
+samtools faidx GCF_000002315.5_GRCg6a_genomic.fna
+```
