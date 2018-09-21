@@ -3,23 +3,21 @@
 Pipeline from raw data to SNP calling using a reference genome (Here Gallus gallus) 
 
 
-### 1. Assess quality of raw data
+#### 1. Demultiplex & trim (& combine duplicated samples)
 
-### 2. Demultiplex & trim (& combine duplicated samples)
+#### 2. Map to Genome (BWA-mem)
 
-### 3. Map to Genome (BWA-mem)
-
-### 4. Prepare mapped reads for variant calling: 
+#### 3. Prepare mapped reads for variant calling: 
         
         - add Reading Groups, sort, remove PCR duplicates
         
-### 5. Call variants on individuals (g.vcf), which includes local alignment
+#### 4. Call variants on individuals (g.vcf), which includes local alignment
 
-### 6. Join all g.vcf files together (GenomesDBImport)
+#### 5. Join all g.vcf files together (GenomesDBImport)
 
-### 7. Call variants on joing dataset
+#### 6. Call variants on joing dataset
 
-### 8. Filter the variants. 
+#### 7. Filter the variants. 
 
 
 
@@ -64,4 +62,14 @@ showq | grep -B 10 "aj18951"
 
 
 
-## 1. 
+A nice overview of raw data to variants [here](https://informatics.fas.harvard.edu/whole-genome-resquencing-for-population-genomics-fastq-to-vcf.html#variantcalling)
+
+
+
+### 1. Demultiplex & trim
+
+Raw reads are received in fastq.gz format from genomics facilities. In this case they are multiple lanes of sequencing from a HiSeq2500, with multiple individuals pooled within each lane. Individuals were indiviually barcoded. In this step we will demultiplex the samples, trim Illumina adapter sequence, and combine data from individuals sequenced in multiple lanes. 
+
+For demultiplexing I usually use process_radtags from the [STACKS](http://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php) package. This is not available on BlueCrystal, but it I still have access to the Functional Genomics Center server, so I will demultiplex the samples there. 
+
+
