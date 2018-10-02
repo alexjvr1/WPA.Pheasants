@@ -120,4 +120,97 @@ Genome needs to be indexed by both samtools and bwa
 ```
 
 samtools faidx GCF_000002315.5_GRCg6a_genomic.fna
+
+bwa index GCF_000002315.5_GRCg6a_genomic.fna
 ```
+
+
+#### 2.3 fastq sequence names
+
+BWA expects that all the sequences for paired reads are given the same names. But process_radtags appends _1 and _2 to the forward and rev reads respectively. This can be corrected using sed. 
+
+First check the names:
+```
+pwd
+/panfs/panasas01/bisc/aj18951/WPA/demultiplexed
+
+gunzip -c PHE080.trimmed_R1_.fastq.gz | paste - - - - | cut -f 1| head
+
+@1_1101_17025_1521_1
+@1_1101_16922_1522_1
+@1_1101_15563_1533_1
+@1_1101_17116_1536_1
+@1_1101_17071_1553_1
+@1_1101_15369_1557_1
+@1_1101_15403_1561_1
+@1_1101_17592_1571_1
+@1_1101_15060_1573_1
+@1_1101_15000_1599_1
+
+gunzip -c PHE080.trimmed_R2_.fastq.gz | paste - - - - | cut -f 1| head
+@1_1101_17025_1521_2
+@1_1101_16922_1522_2
+@1_1101_15563_1533_2
+@1_1101_17116_1536_2
+@1_1101_17071_1553_2
+@1_1101_15369_1557_2
+@1_1101_15403_1561_2
+@1_1101_17592_1571_2
+@1_1101_15060_1573_2
+@1_1101_15000_1599_2
+
+```
+
+Then edit all the files: 
+```
+gunzip *gz
+
+for i in *fastq
+sed -i '1~4 s/_[12]$//' $i
+done
+```
+
+Check that the names are correct now and then gzip all files again. 
+
+#### 2.4 Map with BWA mem
+
+Script to map all pairs. This creates an array with all the file names, and then iterates through the array. 
+An alteranative would be a separate array for the fwd and rev reads. 
+```
+#!/bin/bash
+#PBS -N WPAMapnew  ##job name
+#PBS -l nodes=2:ppn=16  #nr of nodes and processors per node
+#PBS -l mem=16gb #RAM
+#PBS -l walltime=2:00:00 ##wall time.  
+#PBS -j oe  #concatenates error and output files (with prefix job1)
+
+#run job in working directory
+cd $PBS_O_WORKDIR 
+pwd
+cd WPA
+pwd
+
+#Load modules
+module load apps/bwa-0.7.15
+
+#Define variables
+
+RefSeq=GCF_000002315.5_GRCg6a_genomic.fna
+total_files=`find demultiplexed/ -name '*.fastq.gz' | wc -l`
+arr=( $(demultiplexed/*.fastq.gz) )
+echo "mapping started" >> map.log
+echo "---------------" >> map.log
+
+#bwa index $RefSeq
+
+for ((i=0; i<$total_files; i+=2))
+{
+sample_name=`echo ${arr[$i]} | awk -F "." '{print $1}'`
+echo "[mapping running for] $sample_name"
+printf "\n"
+echo "bwa mem -t 32 $RefSeq ${arr[$i]} ${arr[$i+1]} > $sample_name.sam" >> map.log
+bwa mem -t 32 $RefSeq ${arr[$i]} ${arr[$i+1]} > $sample_name.sam
+}
+```
+
+
