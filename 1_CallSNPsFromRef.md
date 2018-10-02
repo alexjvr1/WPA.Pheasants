@@ -166,7 +166,7 @@ Then edit all the files:
 gunzip *gz
 
 for i in *fastq
-sed -i '1~4 s/_[12]$//' $i
+do sed -i '1~4 s/_[12]$//' $i
 done
 ```
 
