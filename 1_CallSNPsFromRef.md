@@ -176,6 +176,9 @@ Check that the names are correct now and then gzip all files again.
 
 Script to map all pairs. This creates an array with all the file names, and then iterates through the array. 
 An alteranative would be a separate array for the fwd and rev reads. 
+
+Check that the script works before submitting it. e.g. run for one sample in the current directory. 
+Note that when run locally, cd $PBS_O_WORKDIR changes the wd to the user home directory. 
 ```
 #!/bin/bash
 #PBS -N WPAMapnew  ##job name
@@ -187,8 +190,8 @@ An alteranative would be a separate array for the fwd and rev reads.
 #run job in working directory
 cd $PBS_O_WORKDIR 
 pwd
-cd WPA
-pwd
+#cd WPA  #uncomment when running locally. 
+#pwd
 
 #Load modules
 module load apps/bwa-0.7.15
@@ -212,5 +215,31 @@ echo "bwa mem -t 32 $RefSeq ${arr[$i]} ${arr[$i+1]} > $sample_name.sam" >> map.l
 bwa mem -t 32 $RefSeq ${arr[$i]} ${arr[$i+1]} > $sample_name.sam
 }
 ```
+
+#### 2.5 Assess mapping
+
+Check on how well the reads mapped. There are several tools for this. 
+e.g samtools flagstat
+
+```
+module load apps/samtools-1.8 
+samtools flagstat PH079.sam 
+528793 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 secondary
+9177 + 0 supplementary
+0 + 0 duplicates
+519805 + 0 mapped (98.30% : N/A)
+519616 + 0 paired in sequencing
+259808 + 0 read1
+259808 + 0 read2
+490172 + 0 properly paired (94.33% : N/A)
+507450 + 0 with itself and mate mapped
+3178 + 0 singletons (0.61% : N/A)
+13418 + 0 with mate mapped to a different chr
+8490 + 0 with mate mapped to a different chr (mapQ>=5)
+
+```
+
+A really large proportion of the reads mapped to the genome. There are a few unmapped reads that can be removed from further processing. 
 
 
