@@ -13,7 +13,7 @@ Step3: Summary stats in R
 
 
 
-The directions I outline below assume that you'll be working in the mac command line or linux environment. You can access a command line window either through the (Applications folder)[https://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line] or using the Desktop search (control-spacebar) and typing in "Terminal". I'd suggest anchoring this to your taskbar. 
+The directions I outline below assume that you'll be working in the mac command line or linux environment. You can access a command line window either through the [Applications folder](https://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line) or using the Desktop search (control-spacebar) and typing in "Terminal". I'd suggest anchoring this to your taskbar. 
 
 ## Step1: Look at fastq data
 
