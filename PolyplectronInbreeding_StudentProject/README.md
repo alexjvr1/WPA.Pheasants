@@ -13,12 +13,18 @@ Step3: Summary stats in R
 
 
 
+The directions I outline below assume that you'll be working in the mac command line or linux environment. You can access a command line window either through the (Applications folder)[https://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line] or using the Desktop search (control-spacebar) and typing in "Terminal". I'd suggest anchoring this to your taskbar. 
 
 ## Step1: Look at fastq data
 
 
 You can either open these files in a textpad (open with -> TextEdit), or look at them using command line. Mac use a type of linux, so the following code should let you see the start of a file (replace filename with the file you want to look at - e.g. PHE079.R1.fastq)
 ```
+#Usually the files are gzipped to save space. You can unzip them with the following command: 
+
+gunzip filename.gz
+
+#The following commands assume that you're unzipped the files. 
 #This command shows you the first few lines of a document
 head filename 
 
