@@ -70,7 +70,7 @@ And then we have to deal with missing data. It's impossible to get all of the lo
 
 When we look at inbreeding, we'll want a pretty complete dataset with as many loci as possible. We also want info on all the individuals if possible (although if an individual has much less data than the rest, we will drop it for the time being). 
 
-We'll use (vcftools)[http://vcftools.sourceforge.net/man_latest.html] for this part.
+We'll use [vcftools](http://vcftools.sourceforge.net/man_latest.html) for this part.
 
 Have a look at the syntax of the commands I use here. You can also use the manual to see if there are other commands that might be interesting later on. 
 ```
@@ -169,7 +169,7 @@ Congrats! You've just filtered your first RAD data set!
 
 The next step is to look at the data in R. We want to calculate some summary statistics and we want to look at the genetic variance in the data. 
 
-We'll use (Adegenet)[http://adegenet.r-forge.r-project.org/files/tutorial-basics.pdf] for basic statistics and (pcadapt)[https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html] to determine and visualise genetic variance in the data. 
+We'll use [Adegenet](http://adegenet.r-forge.r-project.org/files/tutorial-basics.pdf) for basic statistics and [pcadapt](https://cran.r-project.org/web/packages/pcadapt/vignettes/pcadapt.html) to determine and visualise genetic variance in the data. 
 
 ```
 
