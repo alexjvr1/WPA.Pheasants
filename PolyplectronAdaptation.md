@@ -778,6 +778,74 @@ This might be a good place to talk a bit about some pop gen theory so that you u
 
 #### F-statistics
 
+## October Work on final dataset
+
+Filtering data with MAF 0.05
+```
+vcftools --vcf polyplectron.wholegenome.flt.vcf  --maf 0.05 --recode --recode-INFO-all --out polyplectron.wholegenome.flt.s1.vcf
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+        --vcf polyplectron.wholegenome.flt.vcf
+        --recode-INFO-all
+        --maf 0.05
+        --out polyplectron.wholegenome.flt.s1.vcf
+        --recode
+
+After filtering, kept 59 out of 59 Individuals
+Outputting VCF file...
+After filtering, kept 59102 out of a possible 97437 Sites
+Run Time = 11.00 seconds
+```
+
+Check missingness
+```
+mawk '!/IN/' out.imiss | cut -f5 > totalmissing
+
+gnuplot << \EOF
+set terminal dumb size 120, 30
+set autoscale
+unset label
+set title "Histogram of % missing data per individual"
+set ylabel "Number of Occurrences"
+set xlabel "% of missing data"
+#set yr [0:100000]
+binwidth=0.01
+bin(x,width)=width*floor(x/width) + binwidth/2.0
+plot 'totalmissing' using (bin( $1,binwidth)):(1.0) smooth freq with boxes
+pause -1
+EOF
+
+                                       Histogram of % missing data per individual
+
+  9 ++----------------*****----------------------+---------------------+----------------------+--------------------++
+    +                 *   *                      +            'totalmissing' using (bin( $1,binwidth)):(1.0) ****** +
+    |                 *   *                                                                                         |
+  8 ++                *   *                                                                                        ++
+    |                 *   *                                                                                         |
+    |                 *   *                                                                                         |
+  7 ++                *   *                          *******************                                           ++
+    |                 *   *                          *                 *                                            |
+    |                 *   *                          *                 *                                            |
+  6 ++                *   *                          *                 *                                           ++
+    |                 *   *                          *                 *                                            |
+  5 ++  ***************   *                          *                 *             *****                         ++
+    |   *    *   *    *   *                          *                 *             *   *                          |
+    |   *    *   *    *   *                          *                 *             *   *                          |
+  4 ++  *    *   *    *   *                          *                 **********    *   *                         ++
+    |   *    *   *    *   *                          *                 *    *   *    *   *                          |
+    |   *    *   *    *   *                          *                 *    *   *    *   *                          |
+  3 ++  *    *   *    *   *                          *                 *    *   ******   *                         ++
+    |   *    *   *    *   *                          *                 *    *   *    *   *                          |
+    |   *    *   *    *   *                          *                 *    *   *    *   *                          |
+  2 ++  *    *   *    *   **********                 *                 *    *   *    *   *    **********           ++
+    |   *    *   *    *   *    *   *                 *                 *    *   *    *   *    *   *    *            |
+    +   *    *   *    *   *    *   *             +   *                 *    *   *    *   *    *   *    *            +
+  1 ++--****************************-------------+---*************************************----**********-----------++
+   0.15                  0.2                    0.25                  0.3                    0.35                  0.4
+                                                    % of missing data
 
 
 
